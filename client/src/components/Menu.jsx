@@ -32,6 +32,7 @@ justify-content: flex-start;
 align-items: center;
 gap: 12px;
 cursor: pointer;
+color:  ${({ theme }) => theme.text_secondary};
 width: 100%;
 &:hover{
     background-color: ${({ theme }) => theme.text_secondary + 50};
