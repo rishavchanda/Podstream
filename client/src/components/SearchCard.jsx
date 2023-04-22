@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from '@mui/material/Avatar';
-import styled from 'styled-components'
+import styled from 'styled-components';
 const Card=styled.div`
     height:250px;
     width:250px;
@@ -9,14 +9,14 @@ const Card=styled.div`
     border-radius:0.6rem;
 `
 const PodcastName=styled.div`
-color:white;
-margin:1.6rem;
-font-weight:600;
-font-size:1.5rem;
-`
+    color: ${({ theme }) => theme.text_primary};
+    margin:1.6rem;
+    font-weight:600;
+    font-size:1.5rem;
+    `
 const PodcastDescription=styled.div`
-color:black;
-margin:1.4rem;
+    color: ${({theme}) => theme.text_secondary};
+    margin:1.4rem;
 
 `
 export const SearchCard = () => {
