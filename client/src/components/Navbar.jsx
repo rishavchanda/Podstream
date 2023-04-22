@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
@@ -53,7 +53,9 @@ const Navbar = ({ setSignInOpen, setSignUpOpen }) => {
     <NavbarDiv>
       {
         currentUser ? <>
+        <Link to='/profile'>
           <Avatar src={currentUser.img}>{currentUser.name.charAt(0).toUpperCase()}</Avatar>
+        </Link>
         </>
           :
           <ButtonDiv onClick={() => setSignInOpen(true)}>
