@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getMostPopularPodcast } from '../api/index';
 import { getPodcastByCategory } from '../api';
 import { PodcastCard } from '../components/PodcastCard.jsx'
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 const DashboardMain = styled.div`
 padding: 30px 0px;
@@ -42,20 +43,31 @@ const Dashboard = () => {
       });
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     getPodcastByCategory("comedy")
-  .then((res)=>{
-    setMostPopular(res.data)
-    console.log(res.data)
-  })
-  .catch((error)=>console.log(error));
-  },[])
+      .then((res) => {
+        setMostPopular(res.data)
+        console.log(res.data)
+      })
+      .catch((error) => console.log(error));
+  }, [])
+
+  const slide = (shift) => {
+    scrl.current.scrollLeft += shift;
+  };
 
   return (
     <DashboardMain>
       <FilterContainer>
         <Topic>Most Popular</Topic>
         <Podcasts>
+          <button className="prev" onClick={() => slide(-50)}>
+            <i className="fa fa-angle-left"></i>
+          </button>
+          //Right Button
+          <button className="next" onClick={() => slide(+50)}>
+            <i className="fa fa-angle-right"></i>
+          </button>
           {mostPopular.map((podcast) => (
             <PodcastCard />
           ))}
