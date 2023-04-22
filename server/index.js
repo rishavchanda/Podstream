@@ -6,6 +6,8 @@ import morgan from 'morgan';
 
 //routes
 import authRoutes from './routes/auth.js';
+import podcastsRoutes from './routes/podcast.js';
+import userRoutes from './routes/user.js';
 
 const app = express();
 dotenv.config();
@@ -45,7 +47,8 @@ app.use(express.json())
 // }));
 
 app.use("/api/auth", authRoutes)
-// app.use("/api/users", userRoutes)
+app.use("/api/podcasts", podcastsRoutes)
+app.use("/api/user", userRoutes)
 // app.use("/api/project", projectRoutes)
 // app.use("/api/team", teamRoutes)
 
