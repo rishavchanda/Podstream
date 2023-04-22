@@ -14,8 +14,9 @@ const PodcastsSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    creator:{
+    creator: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     tags: {
@@ -30,13 +31,19 @@ const PodcastsSchema = new mongoose.Schema({
         type: String,
         default: "podcast",
     },
-    file: {
-        type: String,
-        default: "",
+    views: {
+        type: Number,
+        default: 0,
     },
+    episodes: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Episodes",
+        default: [],
+    }
 },
-    { timestamps: true,
-     }
+    {
+        timestamps: true,
+    }
 );
 
 export default mongoose.model("Podcasts", PodcastsSchema);
