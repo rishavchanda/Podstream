@@ -10,7 +10,7 @@ import Dashboard from '../src/pages/Dashboard.jsx'
 import ToastMessage from './components/ToastMessage.jsx';
 import Search from '../src/pages/Search.jsx';
 import Favourites from '../src/pages/Favourites.jsx';
-import Upload from '../src/pages/Upload.jsx';
+import Upload from '../src/components/Upload.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
@@ -37,6 +37,7 @@ function App() {
   const { open, message, severity } = useSelector((state) => state.snackbar);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
+  const [uploadOpen,setUploadOpen] = useState(false);
 
 
   const { currentUser } = useSelector(state => state.user);
@@ -48,17 +49,15 @@ function App() {
       <BrowserRouter>
         {SignInOpen && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
+        {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
         <Podstream>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} />
           <Frame>
             <Navbar setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />
             <Routes>
               <Route path='/' exact element={<Dashboard />} />
               <Route path='/search' exact element={<Search />} />
               <Route path='/favourites' exact element={<Favourites />} />
-              <Route path='/upload' exact element={<Upload />} />
-
-
             </Routes>
           </Frame>
 
