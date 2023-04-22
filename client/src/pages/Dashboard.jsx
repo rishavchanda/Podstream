@@ -12,7 +12,6 @@ const FilterContainer = styled.div`
 margin:20px 20px ;
 padding: 24px;
 box-sizing: border-box;
-height: 250px;
 background-color: ${({ theme }) => theme.bg};
 display: flex;
 flex-direction: column;
@@ -22,9 +21,16 @@ const Topic = styled.div`
   font-size: 24px;
 `;
 const Podcasts = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
+--_spacer: var(--size-3);
+display: grid;
+gap: var(--_spacer);
+grid-auto-flow: column;
+grid-auto-columns: 21%;
+
+padding: 0 var(--_spacer) var(--_spacer);
+
+overflow-x: auto;
+overscroll-behavior-inline: contain;
 `;
 
 const Dashboard = () => {
@@ -52,26 +58,15 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   }, [])
 
-  const slide = (shift) => {
-    scrl.current.scrollLeft += shift;
-  };
-
   return (
     <DashboardMain>
       <FilterContainer>
         <Topic>Most Popular</Topic>
-        <Podcasts>
-          <button className="prev" onClick={() => slide(-50)}>
-            <i className="fa fa-angle-left"></i>
-          </button>
-          //Right Button
-          <button className="next" onClick={() => slide(+50)}>
-            <i className="fa fa-angle-right"></i>
-          </button>
-          {mostPopular.map((podcast) => (
-            <PodcastCard />
-          ))}
-        </Podcasts>
+          <Podcasts>
+            {mostPopular.map((podcast) => (
+              <PodcastCard/>
+            ))}
+          </Podcasts>
       </FilterContainer>
       <FilterContainer>
         <Topic>Comedy</Topic>
