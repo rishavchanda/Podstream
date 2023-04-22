@@ -19,17 +19,9 @@ const EpisodesSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    tags: {
-        type: [String],
-        default: [],
-    },
     type: {
         type: String,
         default: "audio",
-    },
-    category: {
-        type: String,
-        default: "podcast",
     },
     duration: {
         type: String,
