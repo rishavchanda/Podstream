@@ -11,6 +11,7 @@ import ToastMessage from './components/ToastMessage.jsx';
 import Search from '../src/pages/Search.jsx';
 import Favourites from '../src/pages/Favourites.jsx';
 import Upload from '../src/pages/Upload.jsx';
+import Profile from '../src/pages/Profile.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
@@ -57,7 +58,7 @@ function App() {
               <Route path='/search' exact element={<Search />} />
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/upload' exact element={<Upload />} />
-
+              <Route path='/profile' exact element={<Profile />} />
 
             </Routes>
           </Frame>
