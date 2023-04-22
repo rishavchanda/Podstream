@@ -1,14 +1,21 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
+const Card =styled.div`
+background-color: ${({ theme }) => theme.card};
+width:300px;
+height:300px;
+`
 const Description = styled.div`
   font-size:1.2em;
   display:flex;
   padding-bottom:0.6rem;
+  color: ${({ theme }) => theme.text_primary};
+  
 `
 const CreatorName = styled.div`
   font-size:1rem;
+  color: ${({theme}) => theme.text_secondary};
 `
 const CardImage = styled.img`
   height:200px;
@@ -23,10 +30,11 @@ const CardInformation = styled.div`
 `
 const TimePosted = styled.div`
   padding-top:0.6rem;
+  color: ${({theme}) => theme.text_secondary};
 `
 export const PodcastCard = () => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card>
       <CardImage
         src="https://hips.hearstapps.com/hmg-prod/images/podcast-wtf-marc-maron-1613574602.png?resize=480:*"
         alt="green iguana" />
@@ -44,9 +52,7 @@ export const PodcastCard = () => {
             •2hours ago
           </TimePosted>
         </div>
-
       </CardInformation>
-
     </Card>
   );
 }

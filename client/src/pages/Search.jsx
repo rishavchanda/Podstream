@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import {PodcastCard} from '../components/PodcastCard';
+import {DefaultCard} from '../components/DefaultCard';
+import {SearchCard} from '../components/SearchCard';
 
 const Search = () => {
   return (
-    <div>Search</div>
+    <div>
+      <PodcastCard/>
+      <DefaultCard/>
+      <SearchCard/>
+    </div>
   )
 }
 
