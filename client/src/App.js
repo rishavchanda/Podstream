@@ -1,6 +1,8 @@
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
 import {darkTheme, lightTheme} from './utils/Themes.js'
+import ArtistCard from "./components/ArtistCard.jsx";
+import {Search}  from "./components/Search.jsx";
 
 function App() {
 
@@ -10,7 +12,10 @@ function App() {
   return (
 
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <>Start</>
+    <div>
+      <Search/>
+    </div>
+
     </ThemeProvider>
   );
 }
