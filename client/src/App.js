@@ -27,6 +27,7 @@ const Podstream = styled.div`
   width: 100%;
   height: 100vh;
   overflow-y: hidden;
+  overflow-x: hidden;
   background: ${({ theme }) => theme.bgLight}
 `;
 
