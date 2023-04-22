@@ -67,6 +67,7 @@ function App() {
       </BrowserRouter>
 
     </ThemeProvider>
+    
   );
 }
 
