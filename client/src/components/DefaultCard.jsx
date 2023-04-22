@@ -9,7 +9,7 @@ border-radius:0.6rem;
 padding:1rem;
 `
 const DefaultCardText = styled.div`
-color:white;
+color: ${({ theme }) => theme.text_primary};
 font-size:1.4rem;
 font-weight:600;
 `
