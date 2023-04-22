@@ -1,10 +1,17 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
-const Card =styled.div`
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import {useState} from 'react';
+
+const Card = styled.div`
 background-color: ${({ theme }) => theme.card};
 width:300px;
 height:300px;
+`
+
+const Top = styled.div`
+position: relative;
 `
 const Description = styled.div`
   font-size:1.2em;
@@ -15,7 +22,7 @@ const Description = styled.div`
 `
 const CreatorName = styled.div`
   font-size:1rem;
-  color: ${({theme}) => theme.text_secondary};
+  color: ${({ theme }) => theme.text_secondary};
 `
 const CardImage = styled.img`
   height:200px;
@@ -30,14 +37,39 @@ const CardInformation = styled.div`
 `
 const TimePosted = styled.div`
   padding-top:0.6rem;
-  color: ${({theme}) => theme.text_secondary};
+  color: ${({ theme }) => theme.text_secondary};
+`
+const Favorite = styled.div`
+  color:white;
+  position:relative;
+  font-size:1.5rem;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background: ${({ theme }) => theme.text_secondary + 95};
 `
 export const PodcastCard = () => {
+  const [favourite,setFavourite]=useState(true)
   return (
     <Card>
-      <CardImage
-        src="https://hips.hearstapps.com/hmg-prod/images/podcast-wtf-marc-maron-1613574602.png?resize=480:*"
-        alt="green iguana" />
+      <Top>
+        <Favorite>
+          {favourite ?
+          <FavoriteIcon sx={{color:"red"}}></FavoriteIcon>
+          :
+          <FavoriteIcon></FavoriteIcon>}
+        </Favorite>
+        <CardImage
+          src="https://hips.hearstapps.com/hmg-prod/images/podcast-wtf-marc-maron-1613574602.png?resize=480:*"
+          alt="green iguana"
+        />
+      </Top>
+
+
       <CardInformation>
         <Avatar
           src='https://variety.com/wp-content/uploads/2023/02/Marc-Maron.jpg?w=1000' />
