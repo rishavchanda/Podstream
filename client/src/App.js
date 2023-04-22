@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { useState } from "react";
-import {darkTheme, lightTheme} from './utils/Themes.js'
+import {darkTheme, lightTheme} from './utils/Themes.js';
 
 function App() {
 
@@ -10,7 +10,6 @@ function App() {
   return (
 
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <>Start</>
     </ThemeProvider>
   );
 }
