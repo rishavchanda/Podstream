@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
-import { Searchbar } from '../components/Searchbar.jsx';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { DefaultCard } from '../components/DefaultCard.jsx';
 import { Category } from '../utils/Data.js';
+import { searchPodcast } from '../api/index.js';
+import {PodcastCard} from '../components/PodcastCard.jsx'
 
 const SearchMain = styled.div`
 height: 100vh;
@@ -30,20 +32,59 @@ const BrowseAll = styled.div`
 const Categories = styled.div`
     margin: 20px 10px;
 `;
+const Search_whole = styled.div`
+ width:30%;
+ display:flex;
+ border: 1px solid ${({ theme }) => theme.text_secondary};
+ border-radius:30px;
+ cursor:pointer;
+ padding:12px 16px;
+ justify-content: flex-start;
+ align-items: center;
+ gap: 6px;
+ color: ${({ theme }) => theme.text_secondary};
+ `;
 const Search = () => {
+
+    const [searched, setSearched] = useState("");
+    const [searchedPodcasts, setSearchedPodcasts] = useState([]);
+
+    const handleChange = async (e) => {
+        setSearched(e.target.value);
+       await searchPodcast(e.target.value)
+            .then((res) => {
+                setSearchedPodcasts(res.data);
+                console.log(searchedPodcasts);
+            })
+            .catch((err)=>console.log(err));
+    }
 
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     return (
         <SearchMain>
-            <Searchbar />
-            <Categories>
-            <Heading>Browse All</Heading>
-                <BrowseAll>
-                    {Category.map((category) => (
-                        <DefaultCard category={category} />
+            <Search_whole>
+                <SearchOutlinedIcon sx={{ "color": "inherit" }} />
+                <input type='text' placeholder='Search Artist/Podcast'
+                    style={{ "border": "none", "outline": "none", "width": "100%", "background": "inherit", "color": "inherit" }}
+                    value={searched}
+                    onChange={(e) => handleChange(e)} />
+            </Search_whole>
+            {searched === "" ?
+                    <Categories>
+                        <Heading>Browse All</Heading>
+                        <BrowseAll>
+                            {Category.map((category) => (
+                                <DefaultCard category={category} />
+                            ))}
+                        </BrowseAll>
+                    </Categories>
+                :
+                <>
+                    {searchedPodcasts.map((podcast)=>(
+                        <PodcastCard podcast={podcast} />
                     ))}
-                </BrowseAll>
-            </Categories>
+                </>
+            }
         </SearchMain>
     )
 }
