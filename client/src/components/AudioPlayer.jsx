@@ -9,7 +9,7 @@ const Container = styled.div`
     justify-content: space-between;
     height: 80px;
     width: 100%;
-    background-color: #121212;
+    background-color:  ${({ theme }) => theme.card};
     color: white;
     position: fixed;
     bottom: 0;
