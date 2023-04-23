@@ -362,7 +362,7 @@ const Upload = ({ setUploadOpen }) => {
                             <div style={{ display: 'flex', gap: '0px', width: '100%', gap: '6px' }}>
                                 <OutlinedBox style={{ marginTop: "6px", width: '100%', marginRight: '0px' }}>
                                     <Select
-                                        onSelect={
+                                        onChange={
                                             (e) => setPodcast({ ...podcast, type: e.target.value })
                                         }>
                                         <Option value="audio">Audio</Option>
@@ -371,7 +371,7 @@ const Upload = ({ setUploadOpen }) => {
                                 </OutlinedBox>
                                 <OutlinedBox style={{ marginTop: "6px", width: '100%', marginLeft: '0px' }}>
                                     <Select
-                                        onSelect={
+                                        onChange={
                                             (e) => setPodcast({ ...podcast, category: e.target.value })
                                         }
                                     >
