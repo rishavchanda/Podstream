@@ -30,7 +30,15 @@ export const getUser = async (req, res, next) => {
                 select: "name img",
             }
         }
-        ).populate("favorits");
+        ).populate(
+            {
+                path: "favorits",
+                populate: {
+                    path: "creator",
+                    select: "name img",
+                }
+            }
+        );
         res.status(200).json(user);
     } catch (err) {
         console.log(req.user)

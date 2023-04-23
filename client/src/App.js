@@ -17,6 +17,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
 import AudioPlayer from "./components/AudioPlayer.jsx";
+import VideoPlayer from "./components/VideoPlayer.jsx";
 
 const Frame = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ function App() {
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
   const [uploadOpen,setUploadOpen] = useState(false);
+  const [videoOpen,setVideoOpen] = useState(false);
 
 
   const { currentUser } = useSelector(state => state.user);
@@ -53,6 +55,7 @@ function App() {
         {SignInOpen && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
+        {videoOpen && <VideoPlayer setVideoOpen={setVideoOpen} />}
         <Podstream>
           <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen}/>
           <Frame>

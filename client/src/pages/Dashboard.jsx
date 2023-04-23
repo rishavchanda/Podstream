@@ -138,7 +138,7 @@ const Dashboard = () => {
           </Topic>
           <Podcasts>
             {user?.podcasts.slice(0, 6).map((podcast) => (
-              <PodcastCard podcast={podcast} />
+              <PodcastCard podcast={podcast} user={user}/>
             ))}
           </Podcasts>
         </FilterContainer>
@@ -149,7 +149,7 @@ const Dashboard = () => {
         </Topic>
         <Podcasts>
           {mostPopular.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} />
+            <PodcastCard podcast={podcast} user={user}/>
           ))}
         </Podcasts>
       </FilterContainer>
@@ -159,7 +159,7 @@ const Dashboard = () => {
         </Topic>
         <Podcasts>
           {comedy.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} />
+            <PodcastCard podcast={podcast} user={user}/>
           ))}
         </Podcasts>
       </FilterContainer>
@@ -169,7 +169,7 @@ const Dashboard = () => {
         </Topic>
         <Podcasts>
           {horror.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} />
+            <PodcastCard podcast={podcast} user={user}/>
           ))}
         </Podcasts>
       </FilterContainer>
@@ -179,7 +179,7 @@ const Dashboard = () => {
         </Topic>
         <Podcasts>
           {crime.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} />
+            <PodcastCard podcast={podcast} user={user}/>
           ))}
         </Podcasts>
       </FilterContainer>
@@ -189,7 +189,7 @@ const Dashboard = () => {
         </Topic>
         <Podcasts>
           {sports.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} />
+            <PodcastCard podcast={podcast} user={user}/>
           ))}
         </Podcasts>
       </FilterContainer>

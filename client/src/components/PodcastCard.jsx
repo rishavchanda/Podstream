@@ -4,10 +4,13 @@ import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
+import { favoritePodcast } from '../api';
+import { useSelector } from 'react-redux';
 
 const Card = styled.div`
 background-color: ${({ theme }) => theme.card};
 height:250px;
+max-width: 220px;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
@@ -109,12 +112,34 @@ const Favorite = styled(IconButton)`
   color: ${({ theme }) => theme.text_primary} !important;
   position: absolute !important;
 `
-export const PodcastCard = ({ podcast }) => {
+export const PodcastCard = ({ podcast,user }) => {
   const [favourite, setFavourite] = useState(false)
+  
+  const token = localStorage.getItem("podstreamtoken");
+
+  const favoritpodcast = async () => {
+    console.log(podcast._id.toString(),token)
+    await favoritePodcast(podcast._id,token).then((res) => {
+      if (res.status === 200) {
+        setFavourite(!favourite)
+      }
+    }
+    ).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  React.useEffect(() => {
+    //favorits is an array of objects in which each object has a podcast id match it to the current podcast id
+    if (user?.favorits?.find((fav) => fav._id === podcast._id)) {
+      setFavourite(true)
+    }
+  }, [user])
+
   return (
     <Card>
       <Top>
-        <Favorite>
+        <Favorite onClick={() => favoritpodcast()}>
           {favourite ?
             <FavoriteIcon style={{ color: "#E30022",width: '16px', height: '16px'}}></FavoriteIcon>
             :
