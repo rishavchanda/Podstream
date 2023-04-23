@@ -147,7 +147,7 @@ export const addView = async (req, res, next) => {
 //searches
 export const random = async (req, res, next) => {
     try {
-        const podcasts = await Podcasts.aggregate([{ $sample: { size: 40 } }]);
+        const podcasts = await Podcasts.aggregate([{ $sample: { size: 40 } }]).populate("creator", "name img").populate("episodes");
         res.status(200).json(podcasts);
     } catch (err) {
         next(err);
@@ -156,7 +156,7 @@ export const random = async (req, res, next) => {
 
 export const mostpopular = async (req, res, next) => {
     try {
-        const podcast = await Podcasts.find().sort({ views: -1 });
+        const podcast = await Podcasts.find().sort({ views: -1 }).populate("creator", "name img").populate("episodes");
         res.status(200).json(podcast);
     } catch (err) {
         next(err);
@@ -166,7 +166,7 @@ export const mostpopular = async (req, res, next) => {
 export const getByTag = async (req, res, next) => {
     const tags = req.query.tags.split(",");
     try {
-        const podcast = await Podcasts.find({ tags: { $in: tags } });
+        const podcast = await Podcasts.find({ tags: { $in: tags } }).populate("creator", "name img").populate("episodes");
         res.status(200).json(podcast);
     } catch (err) {
         next(err);
@@ -179,7 +179,7 @@ export const getByCategory = async (req, res, next) => {
         const podcast = await Podcasts.find({ 
             
         category: { $regex: query, $options: "i" },
-        });
+        }).populate("creator", "name img").populate("episodes");
         res.status(200).json(podcast);
     } catch (err) {
         next(err);
@@ -191,7 +191,7 @@ export const search = async (req, res, next) => {
     try {
       const podcast = await Podcasts.find({
         name: { $regex: query, $options: "i" },
-      }).limit(40);
+      }).populate("creator", "name img").populate("episodes").limit(40);
       res.status(200).json(podcast);
     } catch (err) {
       next(err);
