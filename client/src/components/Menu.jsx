@@ -47,7 +47,7 @@ height: 1px;
 background-color: ${({ theme }) => theme.text_secondary + 50};
 margin: 10px 0px;
 `;
-const Menu = ({ darkMode, setDarkMode }) => {
+const Menu = ({ darkMode, setDarkMode,setUploadOpen }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -77,7 +77,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
                 </Elements>
             </Link >
             <HR />
-            <Link to='/upload' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
+            <Link onClick={()=>setUploadOpen(true)} style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
                 <Elements>
                     <BackupRoundedIcon />
                     <NavText>Upload</NavText>
