@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const API = axios.create({ baseURL: `http://localhost:8700/api` }); 
+const API = axios.create({ baseURL: `https://podstream.onrender.com/api` }); 
 
 
 
