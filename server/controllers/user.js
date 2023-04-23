@@ -23,10 +23,25 @@ export const update = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
     try {
-      const user = await User.findById(req.user.id).populate("podcasts").populate("favorits");
-      res.status(200).json(user);
+        const user = await User.findById(req.user.id).populate({
+            path: "podcasts",
+            populate: {
+                path: "creator",
+                select: "name img",
+            }
+        }
+        ).populate(
+            {
+                path: "favorits",
+                populate: {
+                    path: "creator",
+                    select: "name img",
+                }
+            }
+        );
+        res.status(200).json(user);
     } catch (err) {
-      console.log(req.user)
-      next(err);
+        console.log(req.user)
+        next(err);
     }
-  }
+}
