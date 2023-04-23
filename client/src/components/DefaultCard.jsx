@@ -2,11 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-width:200px;
-height:200px;
-background-color:#4B7F12;
+width:150px;
+height:150px;
 border-radius:0.6rem;
 padding:1rem;
+&:hover{
+  cursor: pointer;
+  transform: translateY(-8px);
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.3);
+  filter: brightness(1.3);
+}
 `
 const DefaultCardText = styled.div`
 color: ${({ theme }) => theme.text_primary};
@@ -14,24 +20,31 @@ font-size:1.4rem;
 font-weight:600;
 `
 const DefaultCardImg=styled.img`
-height:100px;
-width:100px;
-margin-left:6.5rem;
-margin-top:6rem;
-clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+height:90px;
+width:80px;
+object-fit: cover;
+clip-path: polygon(0 0, 100% 0, 100% 66%, 0 98%);
 transform:rotate(20deg);
 `
-export const DefaultCard = () => {
+const FlexContainer = styled.div`
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: flex-end;
+align-items: flex-end;
+`
+export const DefaultCard = ({category}) => {
   return (
-    <Card>
+    <Card style={{"background-color":`${category.color}`}}>
         <DefaultCardText>
-            Podcasts
+            {category.name}
         </DefaultCardText>
-
+        <FlexContainer>
         <DefaultCardImg
-            src="https://imgs.search.brave.com/d0WynnhpkxgzTEUxhBqoA47nZYNAPUI9I0s2emLOUKI/rs:fit:640:640:1/g:ce/aHR0cHM6Ly9pLnNj/ZG4uY28vaW1hZ2Uv/NzE2MWIyNzllNmRl/MmY1OGVjOGRkMzJi/YWE1ZTQ5OGNkMmI3/Njk0OQ"
+            src={category.img}
             alt="podcast-image"
         />
+        </FlexContainer>
     </Card>
   )
 }
