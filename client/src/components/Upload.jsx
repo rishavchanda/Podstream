@@ -13,6 +13,7 @@ import ImageSelector from "./ImageSelector";
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../redux/snackbarSlice";
 import { createPodcast } from '../api';
+import { Category } from '../utils/Data';
 
 const Container = styled.div`
 width: 100%;
@@ -113,6 +114,26 @@ const OutlinedBox = styled.div`
   padding: 0px 14px;
 `;
 
+const Select = styled.select`
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: transparent;
+    outline: none;
+    color: ${({ theme }) => theme.text_secondary};
+`;
+
+const Option = styled.option`
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    border-radius: 3px;
+    background-color: ${({ theme }) => theme.card};
+    outline: none;
+    color: ${({ theme }) => theme.text_secondary};
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   gap: 0px;
@@ -161,6 +182,8 @@ const Upload = ({ setUploadOpen }) => {
         desc: "",
         thumbnail: "",
         tags: [],
+        category: "",
+        type: "audio",
         episodes: [
             {
                 name: "",
@@ -336,6 +359,30 @@ const Upload = ({ setUploadOpen }) => {
                                     onChange={(e) => setPodcast({ ...podcast, tags: e.target.value.split(",") })}
                                 />
                             </OutlinedBox>
+                            <div style={{ display: 'flex', gap: '0px', width: '100%', gap: '6px' }}>
+                                <OutlinedBox style={{ marginTop: "6px", width: '100%', marginRight: '0px' }}>
+                                    <Select
+                                        onSelect={
+                                            (e) => setPodcast({ ...podcast, type: e.target.value })
+                                        }>
+                                        <Option value="audio">Audio</Option>
+                                        <Option value="video">Video</Option>
+                                    </Select>
+                                </OutlinedBox>
+                                <OutlinedBox style={{ marginTop: "6px", width: '100%', marginLeft: '0px' }}>
+                                    <Select
+                                        onSelect={
+                                            (e) => setPodcast({ ...podcast, category: e.target.value })
+                                        }
+                                    >
+                                        <Option value={Category[0].name} selected disabled hidden>Select Category</Option>
+                                        {Category.map((category) => (
+                                            <Option value={category.name}>{category.name}</Option>
+                                        ))}
+                                    </Select>
+                                </OutlinedBox>
+
+                            </div>
                             <OutlinedBox
                                 button={true}
                                 activeButton={!disabled}
