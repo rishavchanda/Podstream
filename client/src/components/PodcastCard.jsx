@@ -21,13 +21,17 @@ const Top = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-
+height: 150px;
 
 `
 const Title = styled.div`
-  display:flex;
-  text-overflow: ellipsis " [..]";
-  width: 80%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  line-clamp: 2;
+  width: 60%;
   color: ${({ theme }) => theme.text_primary};
   
 `
@@ -35,12 +39,13 @@ const Title = styled.div`
 const CardImage = styled.img`
   object-fit:cover;
   width: 100%;
+  height: 100%;
+  border-radius: 6px;
 
 `
 const CardInformation = styled.div`
   display:flex;
   align-items: flex-end;
-  gap:1rem;
   font-weight:450;
   padding: 24px 0px 0px 0px;
   width: 100%;
@@ -61,7 +66,12 @@ const CreatorInfo = styled.div`
   `
   const CreatorName = styled.div`
   font-size:14px;
-  text-overflow: ellipsis " [..]";
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  line-clamp: 2;
   width: 80%;
   color: ${({ theme }) => theme.text_secondary};
 `
@@ -91,7 +101,7 @@ export const PodcastCard = ({podcast}) => {
             :
             <FavoriteIcon></FavoriteIcon>}
         </Favorite> */}
-        <CardImage src="https://hips.hearstapps.com/hmg-prod/images/podcast-wtf-marc-maron-1613574602.png?resize=480:*" />
+        <CardImage src={podcast.thumbnail} />
       </Top>
       <CardInformation>
         <MainInfo>
