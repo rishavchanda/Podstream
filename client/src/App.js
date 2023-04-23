@@ -12,6 +12,7 @@ import Search from '../src/pages/Search.jsx';
 import Favourites from '../src/pages/Favourites.jsx';
 import Upload from '../src/pages/Upload.jsx';
 import Profile from '../src/pages/Profile.jsx';
+import Podcasts from '../src/pages/Podcasts.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
@@ -27,7 +28,8 @@ const Podstream = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100vh;
-  background: ${({ theme }) => theme.bgLight}
+  background: ${({ theme }) => theme.bgLight};
+  overflow-y: hidden;
 `;
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/upload' exact element={<Upload />} />
               <Route path='/profile' exact element={<Profile />} />
+              <Route path='/podcasts/:id' exact element={<Podcasts />} />
 
             </Routes>
           </Frame>

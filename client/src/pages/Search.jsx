@@ -1,16 +1,17 @@
 import React from 'react';
-import {PodcastCard} from '../components/PodcastCard';
-import {DefaultCard} from '../components/DefaultCard';
-import {SearchCard} from '../components/SearchCard';
+import styled from 'styled-components'
 
+const PodcastImage = styled.div`
+padding: 12px 0px;
+width: 200px;
+`;
 const Search = () => {
-  return (
-    <div>
-      <PodcastCard/>
-      <DefaultCard/>
-      <SearchCard/>
-    </div>
-  )
+
+    return (
+        <div>
+            <PodcastImage  src="https://www.exoticindiaart.com/images/products/original/books/ack15.webp"/>
+        </div>
+    )
 }
 
 export default Search

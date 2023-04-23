@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { getMostPopularPodcast } from '../api/index';
 import { getPodcastByCategory } from '../api';
 import { PodcastCard } from '../components/PodcastCard.jsx'
-import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 const DashboardMain = styled.div`
 padding: 30px 0px;
@@ -11,32 +10,29 @@ padding: 30px 0px;
 const FilterContainer = styled.div`
 margin:20px 20px ;
 padding: 24px;
-box-sizing: border-box;
-background-color: ${({ theme }) => theme.bg};
+// background-color: ${({ theme }) => theme.bg};
 display: flex;
 flex-direction: column;
+justify-content: flex-start;
+
 `;
 const Topic = styled.div`
   color: ${({ theme }) => theme.text_primary};
   font-size: 24px;
 `;
 const Podcasts = styled.div`
---_spacer: var(--size-3);
-display: grid;
-gap: var(--_spacer);
-grid-auto-flow: column;
-grid-auto-columns: 21%;
+display: flex;
+flex-direction: row;
+overflow-y: hidden;
+gap: 12px;
 
-padding: 0 var(--_spacer) var(--_spacer);
 
-overflow-x: auto;
-overscroll-behavior-inline: contain;
 `;
 
 const Dashboard = () => {
-
   const [mostPopular, setMostPopular] = useState([]);
   const [comedy, setComedy] = useState([1]);
+  const numberOfPicture=[1,2,3,4];
 
   useEffect(() => {
     getMostPopularPodcast()
@@ -62,11 +58,11 @@ const Dashboard = () => {
     <DashboardMain>
       <FilterContainer>
         <Topic>Most Popular</Topic>
-          <Podcasts>
-            {mostPopular.map((podcast) => (
-              <PodcastCard/>
+        <Podcasts>
+        {mostPopular.map((podcast) => (
+              <PodcastCard podcast={podcast}/>
             ))}
-          </Podcasts>
+        </Podcasts>
       </FilterContainer>
       <FilterContainer>
         <Topic>Comedy</Topic>
