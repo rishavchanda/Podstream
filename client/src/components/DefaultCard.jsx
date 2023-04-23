@@ -15,7 +15,7 @@ padding:1rem;
 }
 `
 const DefaultCardText = styled.div`
-color: ${({ theme }) => theme.text_primary};
+color: #F2F3F4;
 font-size:1.4rem;
 font-weight:600;
 `
