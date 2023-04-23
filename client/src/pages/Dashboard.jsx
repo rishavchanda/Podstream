@@ -5,6 +5,7 @@ import { getMostPopularPodcast } from '../api/index';
 import { getPodcastByCategory } from '../api';
 import { PodcastCard } from '../components/PodcastCard.jsx'
 import { getUsers } from '../api/index';
+import { Link } from 'react-router-dom';
 
 const DashboardMain = styled.div`
 padding: 20px 30px;
@@ -19,7 +20,7 @@ const FilterContainer = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
-${({ box,theme }) => box && `
+${({ box, theme }) => box && `
 background-color: ${theme.bg};
   border-radius: 10px;
   padding: 20px 30px;
@@ -138,58 +139,68 @@ const Dashboard = () => {
           </Topic>
           <Podcasts>
             {user?.podcasts.slice(0, 6).map((podcast) => (
-              <PodcastCard podcast={podcast} user={user}/>
+              <PodcastCard podcast={podcast} user={user} />
             ))}
           </Podcasts>
         </FilterContainer>
       }
       <FilterContainer>
         <Topic>Most Popular
-          <Span>Show All</Span>
+          <Link to={`/showpodcasts/mostpopular`} style={{textDecoration: "none"}}>
+            <Span>Show All</Span>
+          </Link>
         </Topic>
         <Podcasts>
           {mostPopular.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} user={user}/>
+            <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
         <Topic>Comedy
+        <Link to={`/showpodcasts/comedy`} style={{textDecoration: "none"}}>
           <Span>Show All</Span>
+          </Link>
         </Topic>
         <Podcasts>
           {comedy.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} user={user}/>
+            <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
+      <Link to={`/showpodcast/horror`} style={{textDecoration: "none"}}>
         <Topic>Horror
           <Span>Show All</Span>
         </Topic>
+        </Link>
         <Podcasts>
           {horror.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} user={user}/>
+            <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
+      <Link to={`/showpodcast/crime`} style={{textDecoration: "none"}}>
         <Topic>Crime
           <Span>Show All</Span>
         </Topic>
+        </Link>
         <Podcasts>
           {crime.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} user={user}/>
+            <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
+      <Link to={`/showpodcast/sports`} style={{textDecoration: "none"}}>
         <Topic>Sports
           <Span>Show All</Span>
         </Topic>
+        </Link>
         <Podcasts>
           {sports.slice(0, 6).map((podcast) => (
-            <PodcastCard podcast={podcast} user={user}/>
+            <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>

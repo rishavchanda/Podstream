@@ -12,6 +12,7 @@ import BackupRoundedIcon from '@mui/icons-material/BackupRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import CloseRounded from '@mui/icons-material/CloseRounded';
 
 const MenuContainer = styled.div`
   flex: 0.5;
@@ -48,7 +49,17 @@ height: 1px;
 background-color: ${({ theme }) => theme.text_secondary + 50};
 margin: 10px 0px;
 `;
-const Menu = ({ darkMode, setDarkMode, setUploadOpen, setSignInOpen }) => {
+const Flex = styled.div`
+width: 100%;
+justify-content: flex-end;
+`;
+const Close = styled.div`
+display: none;
+@media (max-width: 1100px) {
+  display: block;
+}
+`;
+const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen, setSignInOpen }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,7 +70,12 @@ const Menu = ({ darkMode, setDarkMode, setUploadOpen, setSignInOpen }) => {
     };
 
     return (
-        <MenuContainer>
+        <MenuContainer setMenuOpen={setMenuOpen}>
+            <Flex>
+                <Close>
+                    <CloseRounded onClick={() => setMenuOpen(false)} style={{cursor: "pointer"}}/>
+                </Close>
+            </Flex>
             <Link to='/' style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
                 <Elements>
                     <HomeRoundedIcon />
