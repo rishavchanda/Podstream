@@ -45,10 +45,9 @@ const DisplayPodcasts = () => {
             .catch((error) => console.log(error));
     }
     const getCategory = async () => {
-        await getPodcastByCategory("podcast")
+        await getPodcastByCategory(type)
             .then((res) => {
                 setPodcasts(res.data)
-                console.log(podcasts);
             })
             .catch((err) =>
                 console.log(err));
