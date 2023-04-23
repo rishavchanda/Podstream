@@ -14,6 +14,7 @@ import Upload from '../src/components/Upload.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
+import AudioPlayer from "./components/AudioPlayer.jsx";
 
 const Frame = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ function App() {
               <Route path='/favourites' exact element={<Favourites />} />
             </Routes>
           </Frame>
+          <AudioPlayer/>
 
           {open && <ToastMessage open={open} message={message} severity={severity} />}
         </Podstream>
