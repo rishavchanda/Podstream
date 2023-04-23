@@ -1,8 +1,9 @@
 import * as React from 'react';
 import styled from "styled-components";
 import {format} from 'timeago.js';
+import {Link} from 'react-router-dom';
 
-const SearchedCard = styled.div`
+const SearchedCard = styled(Link)`
 width: 500px;
 display: flex;
 flex-direction: column;
@@ -12,6 +13,7 @@ gap: 12px;
 background-color: ${({ theme }) => theme.card};
 box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
 cursor: pointer;
+text-decoration: none;
 &:hover{
   cursor: pointer;
   transform: translateY(-8px);
@@ -57,10 +59,9 @@ font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
 `
-const ArtistCard = ({podcast}) => {
-  console.log(podcast)
+const TopResult = ({podcast}) => {
   return (
-    <SearchedCard>
+    <SearchedCard to={`/podcast/${podcast?._id}`}>
       <PodcastImage src={podcast?.thumbnail}/>
       <PodcastTitle>{podcast?.name}</PodcastTitle>
       <UploadInfo>
@@ -75,4 +76,4 @@ const ArtistCard = ({podcast}) => {
   );
 }
 
-export default ArtistCard;
+export default TopResult;

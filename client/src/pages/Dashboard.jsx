@@ -45,8 +45,8 @@ const Span = styled.span`
   }
   `;
 const Podcasts = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+display: flex;
+flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
 `;
@@ -83,7 +83,7 @@ const Dashboard = () => {
   }
 
   const getCommedyPodcasts = async () => {
-    getPodcastByCategory("podcast")
+    getPodcastByCategory("comedy")
       .then((res) => {
         setComedy(res.data)
         console.log(res.data)
@@ -92,7 +92,7 @@ const Dashboard = () => {
   }
 
   const getHorrorPodcasts = async () => {
-    getPodcastByCategory("podcast")
+    getPodcastByCategory("horror")
       .then((res) => {
         setHorror(res.data)
         console.log(res.data)
@@ -101,7 +101,7 @@ const Dashboard = () => {
   }
 
   const getSportsPodcasts = async () => {
-    getPodcastByCategory("podcast")
+    getPodcastByCategory("sports")
       .then((res) => {
         setsports(res.data)
         console.log(res.data)
@@ -110,7 +110,7 @@ const Dashboard = () => {
   }
 
   const getCrimePodcasts = async () => {
-    getPodcastByCategory("podcast")
+    getPodcastByCategory("crime")
       .then((res) => {
         setCrime(res.data)
         console.log(res.data)

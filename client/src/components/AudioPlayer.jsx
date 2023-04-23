@@ -15,6 +15,7 @@ const Container = styled.div`
     bottom: 0;
     left: 0;
     padding: 10px 0px;
+    z-index: 999;
 `
 const Left = styled.div`
     display: flex;
