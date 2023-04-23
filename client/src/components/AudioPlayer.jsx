@@ -7,7 +7,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 70px;
     width: 100%;
     background-color:  ${({ theme }) => theme.card};
     color: white;

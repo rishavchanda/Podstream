@@ -31,7 +31,7 @@ export const verifyOtp = async (otp) => await API.get(`/auth/verifyotp?code=${ot
 export const resetPassword = async (email,password) => await API.put(`/auth/forgetpassword`,{email,password});
 
 //user api
-export const getUsers = async (token) => await API.get('/users', { headers: { "Authorization" : `Bearer ${token}` }},{
+export const getUsers = async (token) => await API.get('/user', { headers: { "Authorization" : `Bearer ${token}` }},{
     withCredentials: true
     });
 export const searchUsers = async (search,token) => await API.get(`users/search/${search}`,{ headers: { "Authorization" : `Bearer ${token}` }},{ withCredentials: true });

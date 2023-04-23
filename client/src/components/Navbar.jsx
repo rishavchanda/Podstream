@@ -7,7 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const NavbarDiv = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   padding: 16px 40px;
   align-items: center;
@@ -42,6 +42,11 @@ const ButtonDiv = styled.div`
   }
 `;
 
+const Welcome = styled.div`
+  font-size: 26px;
+  font-weight: 600;
+`;
+
 
 
 const Navbar = ({ setSignInOpen, setSignUpOpen }) => {
@@ -51,10 +56,16 @@ const Navbar = ({ setSignInOpen, setSignUpOpen }) => {
 
   return (
     <NavbarDiv>
+      {currentUser ?
+      <Welcome>
+        Welcome, {currentUser.name}
+      </Welcome>
+      :
+      <>&nbsp;</>}
       {
         currentUser ? <>
-        <Link to='/profile'>
-          <Avatar src={currentUser.img}>{currentUser.name.charAt(0).toUpperCase()}</Avatar>
+        <Link to='/profile' style={{textDecoration: 'none'}}>
+          <Avatar src={currentUser.img} >{currentUser.name.charAt(0).toUpperCase()}</Avatar>
         </Link>
         </>
           :
