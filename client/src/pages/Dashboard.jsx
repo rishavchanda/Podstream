@@ -45,8 +45,8 @@ const Span = styled.span`
   }
   `;
 const Podcasts = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+display: flex;
+flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
 `;

@@ -20,8 +20,8 @@ const Topic = styled.div`
   align-items: center;
 `;
 const Podcasts = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+display: flex;
+flex-wrap: wrap;
 height: 100%;
 gap: 10px;
 padding: 30px 0px;
