@@ -18,6 +18,7 @@ const DefaultCardText = styled.div`
 color: #F2F3F4;
 font-size:1.4rem;
 font-weight:600;
+
 `
 const DefaultCardImg=styled.img`
 height:90px;

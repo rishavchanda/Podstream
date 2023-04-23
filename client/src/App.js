@@ -13,6 +13,7 @@ import Favourites from '../src/pages/Favourites.jsx';
 import Profile from '../src/pages/Profile.jsx';
 import Podcasts from '../src/pages/Podcasts.jsx'
 import Upload from '../src/components/Upload.jsx';
+import DisplayPodcasts from '../src/pages/DisplayPodcasts.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
@@ -66,6 +67,7 @@ function App() {
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/profile' exact element={<Profile />} />
               <Route path='/podcasts/:id' exact element={<Podcasts />} />
+              <Route path='/showpodcasts/:type' exact element={<DisplayPodcasts />} />
 
             </Routes>
           </Frame>

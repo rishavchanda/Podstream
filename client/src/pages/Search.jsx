@@ -7,6 +7,7 @@ import { searchPodcast } from '../api/index.js';
 import { PodcastCard } from '../components/PodcastCard.jsx';
 import TopResult from '../components/TopResult.jsx';
 import MoreResult from '../components/MoreResult.jsx';
+import {Link} from 'react-router-dom';
 
 const SearchMain = styled.div`
 height: 100%;
@@ -77,6 +78,10 @@ const Search = () => {
             .catch((err) => console.log(err));
     }
 
+    const handleCategory = () => {
+
+    }
+
     return (
         <SearchMain>
             <Search_whole>
@@ -91,7 +96,9 @@ const Search = () => {
                     <Heading>Browse All</Heading>
                     <BrowseAll>
                         {Category.map((category) => (
-                            <DefaultCard category={category} />
+                            <Link to={`/showpodcasts/${category.name.toLowerCase()}`} style={{textDecoration:"none"}}>
+                                <DefaultCard category={category} />
+                            </Link>
                         ))}
                     </BrowseAll>
                 </Categories>
