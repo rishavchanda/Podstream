@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton } from "@mui/material";
 
 const NavbarDiv = styled.div`
   display: flex;
@@ -47,26 +49,32 @@ const Welcome = styled.div`
   font-weight: 600;
 `;
 
+const IcoButton = styled(IconButton)`
+  color: ${({ theme }) => theme.text_secondary} !important;
+`;
 
 
-const Navbar = ({ setSignInOpen, setSignUpOpen }) => {
+const Navbar = ({  menuOpen, setMenuOpen, setSignInOpen, setSignUpOpen }) => {
 
   const { currentUser } = useSelector(state => state.user);
 
 
   return (
     <NavbarDiv>
+      <IcoButton onClick={() => setMenuOpen(!menuOpen)}>
+        <MenuIcon />
+      </IcoButton>
       {currentUser ?
-      <Welcome>
-        Welcome, {currentUser.name}
-      </Welcome>
-      :
-      <>&nbsp;</>}
+        <Welcome>
+          Welcome, {currentUser.name}
+        </Welcome>
+        :
+        <>&nbsp;</>}
       {
         currentUser ? <>
-        <Link to='/profile' style={{textDecoration: 'none'}}>
-          <Avatar src={currentUser.img} >{currentUser.name.charAt(0).toUpperCase()}</Avatar>
-        </Link>
+          <Link to='/profile' style={{ textDecoration: 'none' }}>
+            <Avatar src={currentUser.img} >{currentUser.name.charAt(0).toUpperCase()}</Avatar>
+          </Link>
         </>
           :
           <ButtonDiv onClick={() => setSignInOpen(true)}>
