@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Results = styled.div`
+const Results = styled(Link)`
 background-color: ${({ theme }) => theme.bgLight};
 width: 700px;
 display: flex;
@@ -38,7 +39,7 @@ font-size: 12px;
 `
 const MoreResult = ({podcast}) => {
   return (
-    <Results>
+    <Results to={`/podcast/${podcast?._id}`}>
         <PodcastImage src={podcast?.thumbnail}/>
         <PodcastInfo>
             <PodcastName>{podcast?.name}</PodcastName>

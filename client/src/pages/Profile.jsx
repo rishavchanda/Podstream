@@ -11,15 +11,16 @@ const ProfileAvatar = styled.div`
 const ProfileContainer = styled.div`
 display: flex;
 flex-direction: column;
+justify-content: center;
 `
 const ProfileName = styled.div`
 color: ${({ theme }) => theme.text_primary};
-font-size:3rem;
-font-weight:700;
+font-size:34px;
+font-weight:500;
 `
 const Profile_email = styled.div`
 color:#2b6fc2;
-font-size:1.2rem;
+font-size:14px;
 font-weight:400;
 `
 const FilterContainer = styled.div`
@@ -66,10 +67,8 @@ overflow-y: scroll;
 height: 100%;
 `
 const UserDetails = styled.div`
-width: 100%:
-display: flex;
-flex-direction: row;
-gap: 150px;
+display flex;
+gap: 120px
 
 `
 const Container = styled.div`
@@ -102,12 +101,13 @@ const Profile = () => {
 
     const [user, setUser] = useState();
     const { currentUser } = useSelector(state => state.user);
+    const [name, setName] = useState("");
 
     const token = localStorage.getItem("podstreamtoken");
     const getUser = async () => {
         await getUsers(token).then((res) => {
             setUser(res.data)
-            console.log(user.name)
+            setName(res.data.name);
         }).catch((error) => {
             console.log(error)
         });
@@ -116,6 +116,7 @@ const Profile = () => {
     useEffect(() => {
         if (currentUser) {
             getUser();
+            // setName(user?.name.split("")[0].toUpperCase());
         }
     }, [currentUser])
 
@@ -126,9 +127,10 @@ const Profile = () => {
                 <ProfileAvatar>
                     <Avatar sx={{ height: 165, width: 165 }} src={user?.thumbnail}></Avatar>
                 </ProfileAvatar>
+
                 <ProfileContainer>
-                    <ProfileName>{user?.name}</ProfileName>
-                    <Profile_email>Email:{user?.email}</Profile_email>
+                    <ProfileName>{name}</ProfileName>
+                    <Profile_email>Email: {user?.email}</Profile_email>
                 </ProfileContainer>
             </UserDetails>
             {currentUser && user?.podcasts.length > 0 &&
