@@ -30,6 +30,7 @@ const Podstream = styled.div`
   width: 100%;
   height: 100vh;
   background: ${({ theme }) => theme.bgLight};
+  overflow-y: hidden;
   overflow-x: hidden;
 `;
 
@@ -53,7 +54,7 @@ function App() {
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
         <Podstream>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} />
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen}/>
           <Frame>
             <Navbar setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />
             <Routes>

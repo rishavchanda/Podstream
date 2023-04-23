@@ -3,18 +3,25 @@ import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
+import { IconButton } from '@mui/material';
 
 const Card = styled.div`
 background-color: ${({ theme }) => theme.card};
-max-width:180px;
 height:250px;
-width: 100%;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-padding: 20px;
-border-radius: 6px;
+padding: 16px;
+border-radius: 6px;  
+box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
+&:hover{
+  cursor: pointer;
+  transform: translateY(-8px);
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.3);
+  filter: brightness(1.3);
+}
 `
 
 const Top = styled.div`
@@ -22,18 +29,29 @@ display: flex;
 justify-content: center;
 align-items: center;
 height: 150px;
-
+position: relative;
 `
 const Title = styled.div`
+  overflow: hidden;
   display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
-  line-clamp: 2;
-  width: 60%;
   color: ${({ theme }) => theme.text_primary};
-  
+`
+
+const Description = styled.div`
+  overflow: hidden;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${({ theme }) => theme.text_secondary};
+  font-size: 12px;
 `
 
 const CardImage = styled.img`
@@ -41,98 +59,83 @@ const CardImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 6px;
-
+  &:hover{
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
 `
 const CardInformation = styled.div`
   display:flex;
   align-items: flex-end;
   font-weight:450;
-  padding: 24px 0px 0px 0px;
+  padding: 14px 0px 0px 0px;
   width: 100%;
 `
 const MainInfo = styled.div`
   display: flex;
-  flex-direction:row;
-  align-items: center;
+  width: 100%;
+  flex-direction:column;
   justify-content: flex-start;
-  gap: 14px;
+  gap: 4px;
   `
 const CreatorInfo = styled.div`
   display: flex;
-  flex-direction:column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
+  gap: 8px;
+  margin-top: 6px;
 
   `
-  const CreatorName = styled.div`
-  font-size:14px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+const CreatorName = styled.div`
+  font-size:12px;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2; /* Limit to 2 lines */
-  line-clamp: 2;
-  width: 80%;
+  width: 100%;
   color: ${({ theme }) => theme.text_secondary};
 `
 const TimePosted = styled.div`
   padding-top:0.6rem;
   color: ${({ theme }) => theme.text_secondary};
 `
-const Favorite = styled.div`
+const Favorite = styled(IconButton)`
   color:white;
-  font-size:1.5rem;
   bottom: 6px;
   right: 6px;
-  padding: 6px;
+  padding: 6px !important;
   border-radius: 50%;
   display: flex;
   align-items: center;
-  background: ${({ theme }) => theme.text_secondary + 95};
+  background: ${({ theme }) => theme.text_secondary + 95} !important;
+  color: ${({ theme }) => theme.text_primary} !important;
+  position: absolute !important;
 `
-export const PodcastCard = ({podcast}) => {
-  const [favourite, setFavourite] = useState(true)
+export const PodcastCard = ({ podcast }) => {
+  const [favourite, setFavourite] = useState(false)
   return (
     <Card>
       <Top>
-        {/* <Favorite>
+        <Favorite>
           {favourite ?
-            <FavoriteIcon sx={{ color: "red" }}></FavoriteIcon>
+            <FavoriteIcon style={{ color: "#E30022",width: '16px', height: '16px'}}></FavoriteIcon>
             :
-            <FavoriteIcon></FavoriteIcon>}
-        </Favorite> */}
+            <FavoriteIcon style={{width: '16px', height: '16px'}}></FavoriteIcon>
+            }
+        </Favorite>
         <CardImage src={podcast.thumbnail} />
       </Top>
       <CardInformation>
         <MainInfo>
-          <Avatar
-            src='https://variety.com/wp-content/uploads/2023/02/Marc-Maron.jpg?w=1000' />
+          <Title>{podcast.name}</Title>
+          <Description>{podcast.desc}</Description>
           <CreatorInfo>
-            <Title>{podcast.name}</Title>
+            <Avatar
+              src={podcast.creator.img} style={{ width: '26px', height: '26px' }}>{podcast.creator.name?.charAt(0).toUpperCase()}</Avatar>
             <CreatorName>
-              {podcast.creator}
+              {podcast.creator.name}
             </CreatorName>
           </CreatorInfo>
         </MainInfo>
       </CardInformation>
     </Card>
-    // <Card>
-
-    //   <CardInformation>
-    //     <Avatar
-    //       src='https://variety.com/wp-content/uploads/2023/02/Marc-Maron.jpg?w=1000' />
-    //     <div>
-    //       <Description>
-    //         A weekly podcast and radio show hosted by stand-up comedian Marc Maron.
-    //       </Description>
-    //       <CreatorName>
-    //         Marc Maron
-    //       </CreatorName>
-    //       <TimePosted>
-    //         •2hours ago
-    //       </TimePosted>
-    //     </div>
-    //   </CardInformation>
-    // </Card>
   );
 }
