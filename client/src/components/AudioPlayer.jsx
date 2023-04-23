@@ -136,7 +136,7 @@ const VolumeBar = styled.input.attrs({
   }
   `;
 
-const AudioPlayer = () => {
+const AudioPlayer = ({episode,podid}) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progressWidth, setProgressWidth] = useState(0);
     const [volume, setVolume] = useState(1);
@@ -160,12 +160,24 @@ const AudioPlayer = () => {
         audioRef.current.volume = volume;
     };
 
+    useState(() => {
+        //play the audio automatically
+        // if (!isPlaying) {
+        //     //delay the play to avoid the error
+        //     setTimeout(() => {
+        //         audioRef.current.play();
+        //     }, 1000);
+        //     setIsPlaying(true);
+        // }
+        console.log(podid)
+    }, []);
+
     return (
         <Container>
             <Left>
-                <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1200px-Spotify_logo_without_text.svg.png" />
+                <Image src={podid?.name} />
                 <PodData>
-                    <Title>Podcast title -</Title>
+                    <Title>{episode?.name}</Title>
                     <Artist>Artist Name</Artist>
                 </PodData>
             </Left>
@@ -173,7 +185,7 @@ const AudioPlayer = () => {
                 ref={audioRef}
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={() => setIsPlaying(false)}
-                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                src={episode?.file}
             />
             <Player>
                 <Controls>

@@ -11,7 +11,6 @@ import ToastMessage from './components/ToastMessage.jsx';
 import Search from '../src/pages/Search.jsx';
 import Favourites from '../src/pages/Favourites.jsx';
 import Profile from '../src/pages/Profile.jsx';
-import Podcasts from '../src/pages/Podcasts.jsx'
 import Upload from '../src/components/Upload.jsx';
 import DisplayPodcasts from '../src/pages/DisplayPodcasts.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -19,6 +18,7 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components';
 import AudioPlayer from "./components/AudioPlayer.jsx";
 import VideoPlayer from "./components/VideoPlayer.jsx";
+import PodcastDetails from "./pages/PodcastDetails.jsx";
 
 const Frame = styled.div`
   display: flex;
@@ -40,10 +40,11 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(true);
   const { open, message, severity } = useSelector((state) => state.snackbar);
+  const {openaudio, episode, podid } = useSelector((state) => state.audioplayer);
+  const {openvideo, videoepisode, videopodid } = useSelector((state) => state.videoplayer);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
-  const [uploadOpen,setUploadOpen] = useState(false);
-  const [videoOpen,setVideoOpen] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
 
 
   const { currentUser } = useSelector(state => state.user);
@@ -56,9 +57,10 @@ function App() {
         {SignInOpen && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
-        {videoOpen && <VideoPlayer setVideoOpen={setVideoOpen} />}
+        {openvideo && <VideoPlayer videoepisode={videoepisode} videopodid={videopodid}/>}
+        {openaudio && <AudioPlayer episode={episode} podid={podid} />}
         <Podstream>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen}/>
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen} />
           <Frame>
             <Navbar setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />
             <Routes>
@@ -66,12 +68,11 @@ function App() {
               <Route path='/search' exact element={<Search />} />
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/profile' exact element={<Profile />} />
-              <Route path='/podcasts/:id' exact element={<Podcasts />} />
-              <Route path='/showpodcasts/:type' exact element={<DisplayPodcasts />} />
+              <Route path='/podcast/:id' exact element={<PodcastDetails />} />
+              <Route path='/showpodcasts/:type' exact element={<DisplayPodcasts/>} />
 
             </Routes>
           </Frame>
-          <AudioPlayer/>
 
           {open && <ToastMessage open={open} message={message} severity={severity} />}
         </Podstream>
@@ -79,7 +80,7 @@ function App() {
       </BrowserRouter>
 
     </ThemeProvider>
-    
+
   );
 }
 

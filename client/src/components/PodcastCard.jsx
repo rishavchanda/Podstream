@@ -6,8 +6,10 @@ import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import { favoritePodcast } from '../api';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const Card = styled.div`
+const Card = styled(Link)`
+text-decoration: none;
 background-color: ${({ theme }) => theme.card};
 height:250px;
 max-width: 220px;
@@ -137,7 +139,7 @@ export const PodcastCard = ({ podcast,user }) => {
   }, [user])
 
   return (
-    <Card>
+    <Card to={`/podcast/${podcast._id}`}>
       <Top>
         <Favorite onClick={() => favoritpodcast()}>
           {favourite ?

@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import { useDispatch } from 'react-redux';
+import { closeVideoPlayer } from '../redux/videoplayerSlice';
 
 
 const Container = styled.div`
@@ -90,9 +92,12 @@ const Btn = styled.div`
 
 
 const VideoPlayer = ({ setVideoOpen }) => {
+    const dispatch = useDispatch();
 
     return (
-        <Modal open={true} onClose={() => setVideoOpen(false)}>
+        <Modal open={true} onClose={() =>
+            dispatch(closeVideoPlayer())
+        }>
             <Container>
                 <Wrapper>
                     <CloseRounded
@@ -102,7 +107,9 @@ const VideoPlayer = ({ setVideoOpen }) => {
                             right: "30px",
                             cursor: "pointer",
                         }}
-                        onClick={() => setVideoOpen(false)}
+                        onClick={() => {
+                            dispatch(closeVideoPlayer());
+                        }}
                     />
                     <Title>Episode 1</Title>
                     <Videoplayer controls>
@@ -124,7 +131,7 @@ const VideoPlayer = ({ setVideoOpen }) => {
                     </BtnContainer>
                 </Wrapper>
             </Container>
-        </Modal>
+        </Modal >
     )
 }
 
