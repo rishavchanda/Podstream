@@ -10,26 +10,29 @@ padding: 30px 0px;
 const FilterContainer = styled.div`
 margin:20px 20px ;
 padding: 24px;
-box-sizing: border-box;
-height: 250px;
-background-color: ${({ theme }) => theme.bg};
+// background-color: ${({ theme }) => theme.bg};
 display: flex;
 flex-direction: column;
+justify-content: flex-start;
+
 `;
 const Topic = styled.div`
   color: ${({ theme }) => theme.text_primary};
   font-size: 24px;
 `;
 const Podcasts = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
+display: flex;
+flex-direction: row;
+overflow-y: hidden;
+gap: 12px;
+
+
 `;
 
 const Dashboard = () => {
-
   const [mostPopular, setMostPopular] = useState([]);
   const [comedy, setComedy] = useState([1]);
+  const numberOfPicture=[1,2,3,4];
 
   useEffect(() => {
     getMostPopularPodcast()
@@ -42,23 +45,23 @@ const Dashboard = () => {
       });
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     getPodcastByCategory("comedy")
-  .then((res)=>{
-    setMostPopular(res.data)
-    console.log(res.data)
-  })
-  .catch((error)=>console.log(error));
-  },[])
+      .then((res) => {
+        setMostPopular(res.data)
+        console.log(res.data)
+      })
+      .catch((error) => console.log(error));
+  }, [])
 
   return (
     <DashboardMain>
       <FilterContainer>
         <Topic>Most Popular</Topic>
         <Podcasts>
-          {mostPopular.map((podcast) => (
-            <PodcastCard />
-          ))}
+        {mostPopular.map((podcast) => (
+              <PodcastCard podcast={podcast}/>
+            ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
