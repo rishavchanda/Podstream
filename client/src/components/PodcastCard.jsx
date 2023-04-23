@@ -60,9 +60,10 @@ const Description = styled.div`
 `
 
 const CardImage = styled.img`
-  object-fit:cover;
+  object-fit: cover;
+  object-position: 100% 0;
   width: 100%;
-  height: 100%;
+  height: 140px;
   border-radius: 6px;
   &:hover{
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

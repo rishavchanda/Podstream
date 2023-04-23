@@ -169,16 +169,15 @@ const AudioPlayer = ({episode,podid}) => {
         //     }, 1000);
         //     setIsPlaying(true);
         // }
-        console.log(podid)
     }, []);
 
     return (
         <Container>
             <Left>
-                <Image src={podid?.name} />
+                <Image src={podid?.thumbnail} />
                 <PodData>
                     <Title>{episode?.name}</Title>
-                    <Artist>Artist Name</Artist>
+                    <Artist>{episode?.creator.name}</Artist>
                 </PodData>
             </Left>
             <Audio

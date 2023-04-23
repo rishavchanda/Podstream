@@ -91,7 +91,7 @@ const Btn = styled.div`
 `;
 
 
-const VideoPlayer = ({ setVideoOpen }) => {
+const VideoPlayer = ({openvideo, videoepisode, videopodid }) => {
     const dispatch = useDispatch();
 
     return (
@@ -111,16 +111,14 @@ const VideoPlayer = ({ setVideoOpen }) => {
                             dispatch(closeVideoPlayer());
                         }}
                     />
-                    <Title>Episode 1</Title>
                     <Videoplayer controls>
-                        <source src="https://www.dofactory.com/media/movie.mp4" type="video/mp4" />
-                        <source src="video.mp4" type="video/mp4" />
-                        <source src="video.webm" type="video/webm" />
-                        <source src="video.ogg" type="video/ogg" />
+                        <source src={videoepisode.file} type="video/mp4" />
+                        <source src={videoepisode.file} type="video/webm" />
+                        <source src={videoepisode.file} type="video/ogg" />
                         Your browser does not support the video tag.
                     </Videoplayer>
-                    <EpisodeName>Some episode name</EpisodeName>
-                    <EpisodeDescription> Some episode description</EpisodeDescription>
+                    <EpisodeName>{videoepisode.name}</EpisodeName>
+                    <EpisodeDescription>{videoepisode.desc}</EpisodeDescription>
                     <BtnContainer>
                         <Btn>
                             Previous

@@ -44,7 +44,6 @@ function App() {
   const {openvideo, videoepisode, videopodid } = useSelector((state) => state.videoplayer);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
-  const [videoOpen,setVideoOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true);
   const [uploadOpen, setUploadOpen] = useState(false);
 

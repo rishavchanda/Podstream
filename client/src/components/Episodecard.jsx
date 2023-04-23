@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import { openAudioPlayer } from '../redux/audioplayerSlice';
-import { openVideoPlayer } from '../redux/videoplayerSlice';
+import { closeAudioPlayer, openAudioPlayer } from '../redux/audioplayerSlice';
+import { openVideoPlayer,closeVideoPlayer } from '../redux/videoplayerSlice';
 
 const Card = styled.div`
     display: flex;
@@ -37,7 +37,7 @@ const Details = styled.div`
 `;
 
 const Title = styled.div`
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 800;
     color: ${({ theme }) => theme.text_primary};
     width: 100%;
@@ -58,6 +58,9 @@ const Episodecard = ({episode,podid,user,type}) => {
         if(type === "audio"){
             //open audio player
             dispatch(
+                closeVideoPlayer()
+            )
+            dispatch(
                 openAudioPlayer({
                     episode: episode,
                     podid: podid,
@@ -66,6 +69,9 @@ const Episodecard = ({episode,podid,user,type}) => {
         }else{
             //open video player
             dispatch(
+                closeAudioPlayer()
+            )
+            dispatch(
                 openVideoPlayer({
                     videoepisode: episode,
                     videopodid: podid,
@@ -73,7 +79,7 @@ const Episodecard = ({episode,podid,user,type}) => {
             )
         }
     }}>
-        <Image src={episode.name} />
+        <Image src={podid?.thumbnail} />
         <Details>
             <Title>{episode.name}</Title>
             <Description>{episode.desc}</Description>
