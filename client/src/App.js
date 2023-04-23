@@ -30,6 +30,7 @@ const Podstream = styled.div`
   height: 100vh;
   background: ${({ theme }) => theme.bgLight};
   overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 function App() {
