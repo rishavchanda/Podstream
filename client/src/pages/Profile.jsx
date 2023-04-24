@@ -125,7 +125,7 @@ const Profile = () => {
         <ProfileMain>
             <UserDetails>
                 <ProfileAvatar>
-                    <Avatar sx={{ height: 165, width: 165 }} src={user?.img}></Avatar>
+                    <Avatar sx={{ height: 165, width: 165 , fontSize: '24px'}} src={user?.img}>{user?.name.charAt(0).toUpperCase()}</Avatar>
                 </ProfileAvatar>
 
                 <ProfileContainer>
@@ -136,10 +136,9 @@ const Profile = () => {
             {currentUser && user?.podcasts.length > 0 &&
                 <FilterContainer box={true}>
                     <Topic>Your Uploads
-                        <Span>Show All</Span>
                     </Topic>
                     <Podcasts>
-                        {user?.podcasts.slice(0, 6).map((podcast) => (
+                        {user?.podcasts.map((podcast) => (
                             <PodcastCard podcast={podcast} user={user} />
                         ))}
                     </Podcasts>
