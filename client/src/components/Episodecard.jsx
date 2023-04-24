@@ -1,8 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
-import { closeAudioPlayer, openAudioPlayer } from '../redux/audioplayerSlice';
-import { openVideoPlayer,closeVideoPlayer } from '../redux/videoplayerSlice';
+import { closePlayer, openPlayer } from '../redux/audioplayerSlice';
 
 const Card = styled.div`
     display: flex;
@@ -58,10 +57,8 @@ const Episodecard = ({episode,podid,user,type,index}) => {
         if(type === "audio"){
             //open audio player
             dispatch(
-                closeVideoPlayer()
-            )
-            dispatch(
-                openAudioPlayer({
+                openPlayer({
+                    type: "audio",
                     episode: episode,
                     podid: podid,
                     index: index,
@@ -71,13 +68,15 @@ const Episodecard = ({episode,podid,user,type,index}) => {
         }else{
             //open video player
             dispatch(
-                closeAudioPlayer()
-            )
-            dispatch(
-                openVideoPlayer({
-                    videoepisode: episode,
-                    videopodid: podid,
-                })
+                dispatch(
+                    openPlayer({
+                        type: "video",
+                        episode: episode,
+                        podid: podid,
+                        index: index,
+                        currenttime: 0
+                    })
+                )
             )
         }
     }}>

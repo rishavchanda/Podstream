@@ -2,7 +2,6 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import snackbarReducer from "./snackbarSlice";
 import audioReducer from "./audioplayerSlice";
-import videoReducer from "./videoplayerSlice";
 import {
   persistStore,
   persistReducer,
@@ -22,7 +21,7 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ user: userReducer, snackbar: snackbarReducer, audioplayer: audioReducer, videoplayer: videoReducer });
+const rootReducer = combineReducers({ user: userReducer, snackbar: snackbarReducer, audioplayer: audioReducer});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

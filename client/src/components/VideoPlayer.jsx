@@ -6,7 +6,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useDispatch } from 'react-redux';
-import { closeVideoPlayer } from '../redux/videoplayerSlice';
+import { closePlayer } from '../redux/audioplayerSlice';
 
 
 const Container = styled.div`
@@ -92,12 +92,12 @@ const Btn = styled.div`
 `;
 
 
-const VideoPlayer = ({openvideo, videoepisode, videopodid }) => {
+const VideoPlayer = ({episode, podid, currenttime, index}) => {
     const dispatch = useDispatch();
 
     return (
         <Modal open={true} onClose={() =>
-            dispatch(closeVideoPlayer())
+            dispatch(closePlayer())
         }>
             <Container>
                 <Wrapper>
@@ -109,17 +109,17 @@ const VideoPlayer = ({openvideo, videoepisode, videopodid }) => {
                             cursor: "pointer",
                         }}
                         onClick={() => {
-                            dispatch(closeVideoPlayer());
+                            dispatch(closePlayer());
                         }}
                     />
                     <Videoplayer controls>
-                        <source src={videoepisode.file} type="video/mp4" />
-                        <source src={videoepisode.file} type="video/webm" />
-                        <source src={videoepisode.file} type="video/ogg" />
+                        <source src={episode.file} type="video/mp4" />
+                        <source src={episode.file} type="video/webm" />
+                        <source src={episode.file} type="video/ogg" />
                         Your browser does not support the video tag.
                     </Videoplayer>
-                    <EpisodeName>{videoepisode.name}</EpisodeName>
-                    <EpisodeDescription>{videoepisode.desc}</EpisodeDescription>
+                    <EpisodeName>{episode.name}</EpisodeName>
+                    <EpisodeDescription>{episode.desc}</EpisodeDescription>
                     <BtnContainer>
                         <Btn>
                             Previous
