@@ -26,7 +26,7 @@ const MenuContainer = styled.div`
   color: ${({ theme }) => theme.text_primary};
   @media (max-width: 1100px) {
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     width: 100%;
     max-width: 250px;
     left: ${({ setMenuOpen }) => (setMenuOpen ? "0" : "-100%")};
@@ -58,13 +58,17 @@ background-color: ${({ theme }) => theme.text_secondary + 50};
 margin: 10px 0px;
 `;
 const Flex = styled.div`
-width: 100%;
-justify-content: flex-end;
+justify-content: space-between;
+display: flex;
+align-items: center;
+padding: 0px 16px;
+width: 86%;
 `;
 const Close = styled.div`
 display: none;
 @media (max-width: 1100px) {
   display: block;
+
 }
 `;
 const Logo = styled.div`

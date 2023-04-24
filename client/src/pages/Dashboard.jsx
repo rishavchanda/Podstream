@@ -135,7 +135,9 @@ const Dashboard = () => {
       {currentUser && user?.podcasts.length > 0 &&
         <FilterContainer box={true}>
           <Topic>Your Uploads
+          <Link to={`/profile`} style={{textDecoration: "none"}}>
             <Span>Show All</Span>
+          </Link>
           </Topic>
           <Podcasts>
             {user?.podcasts.slice(0, 6).map((podcast) => (

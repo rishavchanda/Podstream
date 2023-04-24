@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Results = styled(Link)`
 background-color: ${({ theme }) => theme.bgLight};
-width: 700px;
+width: 100%;
 display: flex;
 align-items: center;
 padding: 8px;

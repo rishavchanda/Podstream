@@ -13,6 +13,9 @@ padding:1rem;
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.3);
   filter: brightness(1.3);
 }
+@media (max-width: 768px) {
+  width: 250px;
+}
 `
 const DefaultCardText = styled.div`
 color: #F2F3F4;

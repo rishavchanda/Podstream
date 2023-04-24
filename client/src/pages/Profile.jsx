@@ -7,6 +7,9 @@ import { PodcastCard } from '../components/PodcastCard.jsx'
 
 const ProfileAvatar = styled.div`
   padding-left:3rem;
+  @media (max-width: 768px) {
+    padding-left:0rem;
+    }
 `
 const ProfileContainer = styled.div`
 display: flex;
@@ -61,13 +64,13 @@ gap: 14px;
 padding: 18px 6px;
 `;
 const ProfileMain = styled.div`
-padding: 20px;
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-gap: 20px;
+padding: 20px 30px;
+padding-bottom: 200px;
 height: 100%;
 overflow-y: scroll;
+display: flex;
+flex-direction: column;
+gap: 20px;
 `
 const UserDetails = styled.div`
 display flex;
@@ -76,6 +79,8 @@ gap: 120px;
     width: fit-content;
     flex-direction: column; 
     gap: 20px;
+    justify-content: center;
+    align-items: center;
   }
 `
 const Container = styled.div`

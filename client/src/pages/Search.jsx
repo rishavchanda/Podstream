@@ -21,7 +21,9 @@ overflow-x: hidden;
 display: flex;
 flex-direction: column;
 gap: 20px;
-
+@media (max-width: 768px) {
+    padding: 20px 9px;
+}
 
 `;
 const Heading = styled.div`
@@ -46,6 +48,7 @@ const SearchedCards = styled.div`
     @media (max-width: 768px) {
         flex-direction: column;
         justify-content: center;
+        padding: 6px;
     }
 `;
 const Categories = styled.div`
@@ -68,6 +71,10 @@ const OtherResults = styled.div`
     flex-direction: column;
     height: 700px;
     overflow-y: scroll;
+    overflow-x: hidden;
+    @media (max-width: 768px) {
+        height: 100%;
+    }
 `;
 
 const Loader = styled.div`
