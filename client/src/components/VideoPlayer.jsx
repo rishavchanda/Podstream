@@ -1,12 +1,13 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Modal } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { useDispatch } from 'react-redux';
-import { closePlayer } from '../redux/audioplayerSlice';
+import { closePlayer, openPlayer, setCurrentTime } from '../redux/audioplayerSlice';
+import { openSnackbar } from '../redux/snackbarSlice';
 
 
 const Container = styled.div`
@@ -20,6 +21,7 @@ display: flex;
 align-items: top;
 justify-content: center;
 overflow-y: scroll;
+transition: all 0.5s ease;
 `;
 
 const Wrapper = styled.div`
@@ -92,8 +94,70 @@ const Btn = styled.div`
 `;
 
 
-const VideoPlayer = ({episode, podid, currenttime, index}) => {
+const VideoPlayer = ({ episode, podid, currenttime, index }) => {
     const dispatch = useDispatch();
+    const videoref = useRef(null);
+
+    const handleTimeUpdate = () => {
+        const currentTime = videoref.current.currentTime;
+        dispatch(
+            setCurrentTime({
+                currenttime: currentTime
+            })
+        )
+    }
+
+    const goToNextPodcast = () => {
+        //from the podid and index, get the next podcast
+        //dispatch the next podcast
+        if (podid.episodes.length === index + 1) {
+            dispatch(
+                openSnackbar({
+                    message: "This is the last episode",
+                    severity: "info",
+                })
+            )
+            return
+        }
+        dispatch(closePlayer());
+        setTimeout(() => {
+            dispatch(
+                openPlayer({
+                    type: "video",
+                    podid: podid,
+                    index: index + 1,
+                    currenttime: 0,
+                    episode: podid.episodes[index + 1]
+                })
+            )
+        }, 10);
+    }
+
+    const goToPreviousPodcast = () => {
+        //from the podid and index, get the next podcast
+        //dispatch the next podcast
+        if (index === 0) {
+            dispatch(
+                openSnackbar({
+                    message: "This is the first episode",
+                    severity: "info",
+                })
+            )
+            return;
+        }
+        dispatch(closePlayer());
+        setTimeout(() => {
+            dispatch(
+                openPlayer({
+                    type: "video",
+                    podid: podid,
+                    index: index - 1,
+                    currenttime: 0,
+                    episode: podid.episodes[index - 1]
+                })
+            )
+        }, 10);
+    }
 
     return (
         <Modal open={true} onClose={() =>
@@ -112,7 +176,13 @@ const VideoPlayer = ({episode, podid, currenttime, index}) => {
                             dispatch(closePlayer());
                         }}
                     />
-                    <Videoplayer controls>
+                    <Videoplayer controls
+                        ref={videoref}
+                        onTimeUpdate={handleTimeUpdate}
+                        onEnded={() => goToNextPodcast()}
+                        autoPlay
+                        onPlay={() => {videoref.current.currentTime = currenttime}}
+                    >
                         <source src={episode.file} type="video/mp4" />
                         <source src={episode.file} type="video/webm" />
                         <source src={episode.file} type="video/ogg" />
@@ -121,10 +191,10 @@ const VideoPlayer = ({episode, podid, currenttime, index}) => {
                     <EpisodeName>{episode.name}</EpisodeName>
                     <EpisodeDescription>{episode.desc}</EpisodeDescription>
                     <BtnContainer>
-                        <Btn>
+                        <Btn onClick={() => goToPreviousPodcast()}>
                             Previous
                         </Btn>
-                        <Btn>
+                        <Btn onClick={() => goToNextPodcast()}>
                             Next
                         </Btn>
                     </BtnContainer>

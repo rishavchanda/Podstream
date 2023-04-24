@@ -3,7 +3,8 @@ import { IconButton } from '@mui/material'
 import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { setCurrentTime } from '../redux/audioplayerSlice'
+import { closePlayer, openPlayer, setCurrentTime } from '../redux/audioplayerSlice'
+import { openSnackbar } from '../redux/snackbarSlice'
 
 const Container = styled.div`
     display: flex;
@@ -17,8 +18,11 @@ const Container = styled.div`
     bottom: 0;
     left: 0;
     padding: 10px 0px;
+    transition: all 0.5s ease;
     @media (max-width: 768px) {
         height: 60px;
+        gap: 6px;
+        padding: 4px 0px;
     }
     z-index: 999;
 `
@@ -29,6 +33,7 @@ const Left = styled.div`
     margin-left: 20px;
     @media (max-width: 768px) {
         gap: 10px;
+        margin-left: 10px;
     }
     flex: 0.2;
 `
@@ -39,8 +44,8 @@ const Image = styled.img`
     border-radius: 6px;
     object-fit: cover;
     @media (max-width: 768px) {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
     }
 `
 const PodData = styled.div`
@@ -70,54 +75,44 @@ const Player = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex: 0.8;
+    flex: 0.6;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 768px) {
+        flex: 0.8;
+    }
 `
 
 const Controls = styled.div`
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 30px;
+    @media (max-width: 768px) {
+        gap: 10px;
+        margin-right: 10px;
+    }
 `
 
 const Audio = styled.audio`
+    height: 46px;
     width: 100%;
-    height: 50px;
-    margin-right: 20px;
-`
-
-const ProgTime = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    gap: 18px;
-`
-
-const ProgressBar = styled.input`
-    position: relative;
-    width: 100%;
-    height: 4px;
-    background-color: #282828;
-`
-
-const Progress = styled.div`
-    position: absolute;
-    width: ${props => props.width}%;
-    height: 100%;
-    background-color: ${({ theme }) => theme.primary};
-`
-
-const Time = styled.span`
     font-size: 12px;
+    @media (max-width: 768px) {
+        height: 40px;
+        font-size: 10px;
+    }
 `
 
 const IcoButton = styled(IconButton)`
     background-color: ${({ theme }) => theme.text_primary} !important;
     color: ${({ theme }) => theme.bg} !important;
-    font-size: 30px !important;
-    padding: 5px !important;
+    font-size: 60px !important;
+    padding: 10px !important;
+    @media (max-width: 768px) {
+        font-size: 20px !important;
+        padding: 4px !important;
+    }
 `;
 
 const Sound = styled.div`
@@ -125,11 +120,13 @@ const Sound = styled.div`
     align-items: center;
     gap: 10px;
     width: 50%;
+    flex: 0.2;
     max-width: 150px;
     justify-content: space-between;
     margin-right: 20px;
     @media (max-width: 768px) {
         display: none;
+        margin-right: 10px;
     }
 `
 
@@ -164,21 +161,13 @@ const VolumeBar = styled.input.attrs({
   }
   `;
 
-const AudioPlayer = ({ episode, podid, currenttime }) => {
+const AudioPlayer = ({ episode, podid, currenttime, index }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progressWidth, setProgressWidth] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(1);
     const audioRef = useRef(null);
     const dispatch = useDispatch();
-
-
-    const togglePlay = () => {
-        setIsPlaying(!isPlaying);
-        isPlaying ? audioRef.current.pause() : audioRef.current.play();
-        console.log(currenttime)
-        audioRef.current.currentTime = currenttime;
-    }
 
     const handleTimeUpdate = () => {
         const duration = audioRef.current.duration;
@@ -199,33 +188,57 @@ const AudioPlayer = ({ episode, podid, currenttime }) => {
         audioRef.current.volume = volume;
     };
 
-    const moveBy = (e) => {
-        const value = e.target.value;
-        audioRef.current.currentTime = value;
-        setProgressWidth(value);
+    const goToNextPodcast = () => {
+        //from the podid and index, get the next podcast
+        //dispatch the next podcast
+        if (podid.episodes.length === index + 1) {
+            dispatch(
+                openSnackbar({
+                    message: "This is the last episode",
+                    severity: "info",
+                })
+            )
+            return
+        }
+        dispatch(closePlayer());
+        setTimeout(() => {
+            dispatch(
+                openPlayer({
+                    type: "audio",
+                    podid: podid,
+                    index: index + 1,
+                    currenttime: 0,
+                    episode: podid.episodes[index + 1]
+                })
+            )
+        }, 10);
     }
 
-    const goToPreviousEpisode = () => {
-        audioRef.current.currentTime = 0;
-        setProgressWidth(0);
+    const goToPreviousPodcast = () => {
+        //from the podid and index, get the next podcast
+        //dispatch the next podcast
+        if (index === 0) {
+            dispatch(
+                openSnackbar({
+                    message: "This is the first episode",
+                    severity: "info",
+                })
+            )
+            return;
+        }
+        dispatch(closePlayer());
+        setTimeout(() => {
+            dispatch(
+                openPlayer({
+                    type: "audio",
+                    podid: podid,
+                    index: index - 1,
+                    currenttime: 0,
+                    episode: podid.episodes[index - 1]
+                })
+            )
+        }, 10);
     }
-
-    const goToNextEpisode = () => {
-        // go to next episode from the podcast list
-    }
-
-    useState(() => {
-        //play the audio automatically
-        // if (!isPlaying) {
-        //     //delay the play to avoid the error
-        //     setTimeout(() => {
-        //         audioRef.current.play();
-        //     }, 1000);
-        //     setIsPlaying(true);
-        // }
-        // audioRef.current.currentTime = currenttime;
-
-    }, []);
 
     return (
         <Container>
@@ -236,31 +249,25 @@ const AudioPlayer = ({ episode, podid, currenttime }) => {
                     <Artist>{episode?.creator.name}</Artist>
                 </PodData>
             </Left>
-            <Audio
-                ref={audioRef}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={() => setIsPlaying(false)}
-                src={episode?.file}
-            />
+
             <Player>
                 <Controls>
-                    <SkipPreviousRounded onClick={() => goToPreviousEpisode()} />
-                    {isPlaying ? <IcoButton onClick={togglePlay}><Pause style={{ color: 'inherit' }} /></IcoButton> : <IcoButton onClick={togglePlay}><PlayArrow style={{ color: 'inherit' }} /></IcoButton>}
-                    <SkipNextRounded onClick={() => goToNextEpisode()} />
+                    <IcoButton>
+                        <SkipPreviousRounded onClick={() => goToPreviousPodcast()} />
+                    </IcoButton>
+                    <Audio
+                        ref={audioRef}
+                        onTimeUpdate={handleTimeUpdate}
+                        onEnded={() => goToNextPodcast()}
+                        autoPlay
+                        controls
+                        onPlay={() => { audioRef.current.currentTime = currenttime }}
+                        src={episode?.file}
+                    />
+                    <IcoButton>
+                        <SkipNextRounded onClick={() => goToNextPodcast()} />
+                    </IcoButton>
                 </Controls>
-                <ProgTime>
-                    <Time>{audioRef.current?.currentTime ? new Date(audioRef.current.currentTime * 1000).toISOString().substr(14, 5) : "00:00"}</Time>
-                    <ProgressBar type="range" min={0} value={progressWidth} max={duration}
-                        onChange={
-                            (e) => {
-                                moveBy(e)
-                            }
-                        } />
-                    <Time>{
-                        audioRef.current?.duration ? new Date(audioRef.current.duration * 1000).toISOString().substr(14, 5) : "00:00"
-                    }
-                    </Time>
-                </ProgTime>
             </Player>
             <Sound>
                 <VolumeUp />
