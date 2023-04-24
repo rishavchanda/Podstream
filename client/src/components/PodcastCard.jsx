@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 const Card = styled(Link)`
 text-decoration: none;
 background-color: ${({ theme }) => theme.card};
-height:250px;
 max-width: 220px;
 display: flex;
 flex-direction: column;
