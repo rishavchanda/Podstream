@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PodcastCard } from '../components/PodcastCard';
 import { getUsers } from '../api/index';
+import { CircularProgress } from '@mui/material';
 
 const Container = styled.div`
 padding: 20px 30px;
@@ -29,8 +30,28 @@ gap: 14px;
 padding: 18px 6px;
 `
 
+const Loader = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+`
+
+const DisplayNo = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+color: ${({ theme }) => theme.text_primary};
+`
+
+
 const Favourites = () => {
   const [user, setUser] = useState();
+  const [Loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   //user
   const { currentUser } = useSelector(state => state.user);
 
@@ -43,10 +64,17 @@ const Favourites = () => {
     });
   }
 
-  useEffect(() => {
+  const getuser = async () => {
+
     if (currentUser) {
-      getUser();
+      setLoading(true);
+      await getUser();
+      setLoading(false);
     }
+  }
+
+  useEffect(() => {
+    getuser();
   }, [currentUser]);
 
   return (
@@ -54,11 +82,18 @@ const Favourites = () => {
       <Topic>
         Favourites
       </Topic>
-      <FavouritesContainer>
-        {user && user?.favorits.map((podcast) => (
-          <PodcastCard podcast={podcast} user={user}/>
-        ))}
-      </FavouritesContainer>
+      {Loading ?
+        <Loader>
+          <CircularProgress />
+        </Loader>
+        :
+        <FavouritesContainer>
+          {user?.favorits?.length === 0 && <DisplayNo>No Favourites</DisplayNo>}
+          {user && user?.favorits.map((podcast) => (
+            <PodcastCard podcast={podcast} user={user} />
+          ))}
+        </FavouritesContainer>
+      }
     </Container>
   )
 }

@@ -6,6 +6,7 @@ import { PodcastCard } from '../components/PodcastCard.jsx';
 import { useDispatch } from "react-redux";
 import { openSnackbar } from "../redux/snackbarSlice";
 import { displayPodcastFailure } from '../redux/userSlice.jsx';
+import { CircularProgress } from '@mui/material';
 
 const DisplayMain = styled.div`
 display: flex;
@@ -33,7 +34,25 @@ const Container = styled.div`
 background-color: ${({ theme }) => theme.bg};
 padding: 20px;
 border-radius: 6px;
+min-height: 400px;
 `
+
+const Loader = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+`
+const DisplayNo = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+color: ${({ theme }) => theme.text_primary};
+`
+
 
 
 
@@ -46,10 +65,10 @@ const DisplayPodcasts = () => {
 
     const mostPopular = async () => {
         await getMostPopularPodcast()
-            .then((res) => setPodcasts(res.data))
+            .then((res) => {
+                setPodcasts(res.data)
+            })
             .catch((err) => {
-                dispatch(displayPodcastFailure());
-                setLoading(false);
                 dispatch(
                     openSnackbar({
                         message: err.message,
@@ -62,20 +81,8 @@ const DisplayPodcasts = () => {
         await getPodcastByCategory(type)
             .then((res) => {
                 setPodcasts(res.data)
-                if (podcasts.length() === 0) {
-                    dispatch(displayPodcastFailure());
-                    setLoading(false);
-                    dispatch(
-                        openSnackbar({
-                            message: "No podcasts in this category.",
-                            severity: "error",
-                        })
-                    );
-                }
             })
             .catch((err) => {
-                dispatch(displayPodcastFailure());
-                setLoading(false);
                 dispatch(
                     openSnackbar({
                         message: err.message,
@@ -86,32 +93,47 @@ const DisplayPodcasts = () => {
 
     }
 
-    useEffect(() => {
-
+    const getallpodcasts = async () => {
         if (type === 'mostpopular') {
+            setLoading(true);
             let arr = type.split("");
             arr[0] = arr[0].toUpperCase();
             arr.splice(4, 0, " ");
             setString(arr.join(""));
             console.log(string);
-            mostPopular();
+            await mostPopular();
+            setLoading(false);
         }
         else {
+            setLoading(true);
             let arr = type.split("");
             arr[0] = arr[0].toUpperCase();
             setString(arr);
-            getCategory();
+            await getCategory();
+            setLoading(false);
         }
+    }
+
+    useEffect(() => {
+        getallpodcasts();
+
     }, [])
     return (
         <DisplayMain>
             <Container>
                 <Topic>{string}</Topic>
-                <Podcasts>
-                    {podcasts.map((podcast) => (
-                        <PodcastCard podcast={podcast} />
-                    ))}
-                </Podcasts>
+                {Loading ? 
+                <Loader>
+                    <CircularProgress />
+                </Loader>
+                 :
+                    <Podcasts>
+                        {podcasts.length === 0 && <DisplayNo>No Podcasts</DisplayNo>}
+                        {podcasts.map((podcast) => (
+                            <PodcastCard podcast={podcast} />
+                        ))}
+                    </Podcasts>
+                }
             </Container>
         </DisplayMain>
     )
