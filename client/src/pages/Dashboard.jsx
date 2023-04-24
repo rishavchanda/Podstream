@@ -55,7 +55,7 @@ const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState([]);
   const [user, setUser] = useState();
   const [comedy, setComedy] = useState([]);
-  const [horror, setHorror] = useState([]);
+  const [news, setNews] = useState([]);
   const [sports, setsports] = useState([]);
   const [crime, setCrime] = useState([]);
 
@@ -91,10 +91,10 @@ const Dashboard = () => {
       .catch((error) => console.log(error));
   }
 
-  const getHorrorPodcasts = async () => {
-    getPodcastByCategory("horror")
+  const getNewsPodcasts = async () => {
+    getPodcastByCategory("news")
       .then((res) => {
-        setHorror(res.data)
+        setNews(res.data)
         console.log(res.data)
       })
       .catch((error) => console.log(error));
@@ -124,7 +124,7 @@ const Dashboard = () => {
     }
     getPopularPodcast();
     getCommedyPodcasts();
-    getHorrorPodcasts();
+    getNewsPodcasts();
     getCommedyPodcasts();
     getCrimePodcasts();
     getSportsPodcasts();
@@ -169,19 +169,19 @@ const Dashboard = () => {
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
-      <Link to={`/showpodcast/horror`} style={{textDecoration: "none"}}>
-        <Topic>Horror
+      <Link to={`/showpodcasts/news`} style={{textDecoration: "none"}}>
+        <Topic>News
           <Span>Show All</Span>
         </Topic>
         </Link>
         <Podcasts>
-          {horror.slice(0, 6).map((podcast) => (
+          {news.slice(0, 6).map((podcast) => (
             <PodcastCard podcast={podcast} user={user} />
           ))}
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
-      <Link to={`/showpodcast/crime`} style={{textDecoration: "none"}}>
+      <Link to={`/showpodcasts/crime`} style={{textDecoration: "none"}}>
         <Topic>Crime
           <Span>Show All</Span>
         </Topic>
@@ -193,7 +193,7 @@ const Dashboard = () => {
         </Podcasts>
       </FilterContainer>
       <FilterContainer>
-      <Link to={`/showpodcast/sports`} style={{textDecoration: "none"}}>
+      <Link to={`/showpodcasts/sports`} style={{textDecoration: "none"}}>
         <Topic>Sports
           <Span>Show All</Span>
         </Topic>
