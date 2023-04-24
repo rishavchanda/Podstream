@@ -22,7 +22,7 @@ text-decoration: none;
   filter: brightness(1.3);
 }
 @media (max-width: 768px) {
-  width: 300px;
+  width: 290px;
 }
 `
 const PodcastImage = styled.img`

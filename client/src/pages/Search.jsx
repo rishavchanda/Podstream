@@ -22,6 +22,8 @@ justify-content: flex-start;
 align-items: center;
 padding: 20px;
 gap: 20px;
+
+
 `;
 const Heading = styled.div`
     width: 100%;
@@ -46,6 +48,7 @@ const SearchedCards = styled.div`
     padding: 14px;
     @media (max-width: 768px) {
         flex-direction: column;
+        justify-content: center;
     }
 `;
 const Categories = styled.div`
