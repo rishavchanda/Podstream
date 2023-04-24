@@ -100,12 +100,13 @@ const Search = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const handleChange = async (e) => {
+        setSearchedPodcasts([]);
         setLoading(true);
         setSearched(e.target.value);
-        await searchPodcast(searched)
+        await searchPodcast(e.target.value)
             .then((res) => {
                 setSearchedPodcasts(res.data);
-                console.log(searchedPodcasts[0]);
+                console.log(res.data);
             })
             .catch((err) => {
                 dispatch(
@@ -146,17 +147,18 @@ const Search = () => {
                         </Loader>
                         :
                         <SearchedCards>
-                            <TopResult podcast={searchedPodcasts[0]} />
-                            <OtherResults>
-                                {searchedPodcasts.length === 0 ?
-                                    <DisplayNo>No Podcasts Found</DisplayNo>
-                                    :
-                                    <>
+                            {searchedPodcasts.length === 0 ?
+                                <DisplayNo>No Podcasts Found</DisplayNo>
+                                :
+                                <>
+                                    <TopResult podcast={searchedPodcasts[0]} />
+                                    <OtherResults>
                                         {searchedPodcasts.map((podcast) => (
                                             <MoreResult podcast={podcast} />
                                         ))}
-                                    </>}
-                            </OtherResults>
+                                    </OtherResults>
+                                </>
+                            }
                         </SearchedCards>
                     }
                 </>

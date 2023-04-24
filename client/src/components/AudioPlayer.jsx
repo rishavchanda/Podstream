@@ -17,6 +17,9 @@ const Container = styled.div`
     bottom: 0;
     left: 0;
     padding: 10px 0px;
+    @media (max-width: 768px) {
+        height: 60px;
+    }
     z-index: 999;
 `
 const Left = styled.div`
@@ -24,6 +27,10 @@ const Left = styled.div`
     align-items: center;
     gap: 20px;
     margin-left: 20px;
+    @media (max-width: 768px) {
+        gap: 10px;
+    }
+    flex: 0.2;
 `
 
 const Image = styled.img`
@@ -31,6 +38,10 @@ const Image = styled.img`
     height: 60px;
     border-radius: 6px;
     object-fit: cover;
+    @media (max-width: 768px) {
+        width: 36px;
+        height: 36px;
+    }
 `
 const PodData = styled.div`
     display: flex;
@@ -39,6 +50,15 @@ const PodData = styled.div`
 const Title = styled.span`
     font-size: 14px;
     font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 `
 const Artist = styled.span`
     font-size: 12px;
@@ -50,6 +70,7 @@ const Player = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    flex: 0.8;
     align-items: center;
     justify-content: space-between;
 `
@@ -107,6 +128,9 @@ const Sound = styled.div`
     max-width: 150px;
     justify-content: space-between;
     margin-right: 20px;
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const VolumeBar = styled.input.attrs({
