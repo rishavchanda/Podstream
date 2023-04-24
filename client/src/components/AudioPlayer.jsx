@@ -141,6 +141,7 @@ const VolumeBar = styled.input.attrs({
 const AudioPlayer = ({episode,podid}) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progressWidth, setProgressWidth] = useState(0);
+    const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(1);
     const audioRef = useRef(null);
 
@@ -154,6 +155,7 @@ const AudioPlayer = ({episode,podid}) => {
         const currentTime = audioRef.current.currentTime;
         const progress = (currentTime / duration) * 100;
         setProgressWidth(progress);
+        setDuration(duration);
     }
 
     const handleVolumeChange = (event) => {
@@ -161,6 +163,21 @@ const AudioPlayer = ({episode,podid}) => {
         setVolume(volume);
         audioRef.current.volume = volume;
     };
+
+    const moveBy = (e) => {
+        const value = e.target.value;
+        audioRef.current.currentTime = value;
+        setProgressWidth(value);
+    }
+
+    const goToPreviousEpisode = () => {
+        audioRef.current.currentTime = 0;
+        setProgressWidth(0);
+    }
+
+    const goToNextEpisode = () => {
+        // go to next episode from the podcast list
+    }
 
     useState(() => {
         //play the audio automatically
@@ -190,13 +207,18 @@ const AudioPlayer = ({episode,podid}) => {
             />
             <Player>
                 <Controls>
-                    <SkipPreviousRounded />
+                    <SkipPreviousRounded onClick={()=>goToPreviousEpisode()}/>
                     {isPlaying ? <IcoButton onClick={togglePlay}><Pause style={{ color: 'inherit' }} /></IcoButton> : <IcoButton onClick={togglePlay}><PlayArrow style={{ color: 'inherit' }} /></IcoButton>}
-                    <SkipNextRounded />
+                    <SkipNextRounded onClick={()=>goToNextEpisode()}/>
                 </Controls>
                 <ProgTime>
                     <Time>{audioRef.current?.currentTime ? new Date(audioRef.current.currentTime * 1000).toISOString().substr(14, 5) : "00:00"}</Time>
-                    <ProgressBar type="range"  minm= {0} max= {1} step= "0.1" value={progressWidth} />
+                    <ProgressBar type="range"  min= {0} value={progressWidth} max={duration}
+                     onChange={
+                        (e) => {
+                            moveBy(e)
+                        }
+                    }/>
                     <Time>{
                         audioRef.current?.duration ? new Date(audioRef.current.duration * 1000).toISOString().substr(14, 5) : "00:00"
                     }
