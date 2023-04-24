@@ -12,6 +12,9 @@ const ProfileContainer = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
+@media (max-width: 768px) {
+    align-items: center;
+  }
 `
 const ProfileName = styled.div`
 color: ${({ theme }) => theme.text_primary};
@@ -68,8 +71,12 @@ overflow-y: scroll;
 `
 const UserDetails = styled.div`
 display flex;
-gap: 120px
-
+gap: 120px;
+@media (max-width: 768px) {
+    width: fit-content;
+    flex-direction: column; 
+    gap: 20px;
+  }
 `
 const Container = styled.div`
 display: flex;
