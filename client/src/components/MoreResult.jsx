@@ -39,7 +39,7 @@ font-size: 12px;
 `
 const MoreResult = ({podcast}) => {
   return (
-    <Results to={`/podcast/${podcast?._id}`}>
+    <Results to={`/podcast/${podcast?._id}`} style={{textDecoration:"none"}}>
         <PodcastImage src={podcast?.thumbnail}/>
         <PodcastInfo>
             <PodcastName>{podcast?.name}</PodcastName>
