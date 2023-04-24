@@ -7,6 +7,8 @@ import { IconButton } from '@mui/material';
 import { favoritePodcast } from '../api';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Card = styled(Link)`
 text-decoration: none;
@@ -115,7 +117,7 @@ const Favorite = styled(IconButton)`
   color: ${({ theme }) => theme.text_primary} !important;
   position: absolute !important;
 `
-export const PodcastCard = ({ podcast,user }) => {
+export const PodcastCard = ({ podcast,user, setSignInOpen }) => {
   const [favourite, setFavourite] = useState(false)
   
   const token = localStorage.getItem("podstreamtoken");
@@ -137,6 +139,9 @@ export const PodcastCard = ({ podcast,user }) => {
       setFavourite(true)
     }
   }, [user])
+
+  const navigate = useNavigate();
+  const { currentUser } = useSelector(state => state.user);
 
   return (
     <Card to={`/podcast/${podcast._id}`}>

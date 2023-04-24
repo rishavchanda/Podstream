@@ -181,7 +181,7 @@ const Dashboard = () => {
               </Topic>
               <Podcasts>
                 {user?.podcasts.slice(0, 10).map((podcast) => (
-                  <PodcastCard podcast={podcast} user={user} />
+                  <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
                 ))}
               </Podcasts>
             </FilterContainer>
@@ -194,7 +194,7 @@ const Dashboard = () => {
             </Topic>
             <Podcasts>
               {mostPopular.slice(0, 10).map((podcast) => (
-                <PodcastCard podcast={podcast} user={user} />
+                <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>
           </FilterContainer>
@@ -206,7 +206,7 @@ const Dashboard = () => {
             </Topic>
             <Podcasts>
               {comedy.slice(0, 10).map((podcast) => (
-                <PodcastCard podcast={podcast} user={user} />
+                <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>
           </FilterContainer>
@@ -218,7 +218,7 @@ const Dashboard = () => {
             </Link>
             <Podcasts>
               {news.slice(0, 10).map((podcast) => (
-                <PodcastCard podcast={podcast} user={user} />
+                <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>
           </FilterContainer>
@@ -230,7 +230,7 @@ const Dashboard = () => {
             </Link>
             <Podcasts>
               {crime.slice(0, 10).map((podcast) => (
-                <PodcastCard podcast={podcast} user={user} />
+                <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>
           </FilterContainer>
@@ -242,7 +242,7 @@ const Dashboard = () => {
             </Link>
             <Podcasts>
               {sports.slice(0, 10).map((podcast) => (
-                <PodcastCard podcast={podcast} user={user} />
+                <PodcastCard podcast={podcast} user={user} setSignInOpen={setSignInOpen} />
               ))}
             </Podcasts>
           </FilterContainer>
