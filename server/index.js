@@ -19,7 +19,7 @@ const corsConfig = {
     origin: true,
 };
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://podstream.netlify.app/'
 }));
 // app.use(morgan('tiny'));
 // app.disable('x-powered-by');
