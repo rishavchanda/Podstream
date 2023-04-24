@@ -58,3 +58,23 @@ npm start
 ## Conclusion
 
 In conclusion, this podcast streaming application provides users with an easy-to-use platform for listening to their favorite podcasts. With features such as user authentication, podcast search, and an admin panel for creating and adding new podcasts, this application offers a comprehensive solution for podcast streaming. 
+
+Here are some pictures of the web application:
+
+![image](https://user-images.githubusercontent.com/100614635/233979351-604732a6-eb97-4124-a4b9-9a07a22f7f9d.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233979651-69b5dc7f-7c47-404b-9211-dd2a3140bcaa.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233979805-0d1c2381-afb9-4f24-b935-7cef18ccc57f.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233980092-bb4748fd-4199-4d5c-a676-f340ed71c699.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233980287-a0bdf848-7a63-48d3-9f1c-7e7cac717e4c.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233980638-36af0f43-6f38-410c-840a-c3d5ba1ccaee.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233980999-6c59ead8-4535-48f8-9b7e-4b5d65ab5b6f.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233981364-5124943f-9016-43a5-aa42-3eee4b231430.png)
+
+![image](https://user-images.githubusercontent.com/100614635/233981534-65a6ebb2-3963-4130-8704-db39695f9ac9.png)
