@@ -12,6 +12,7 @@ const Card = styled(Link)`
 text-decoration: none;
 background-color: ${({ theme }) => theme.card};
 max-width: 220px;
+height: 280px;
 display: flex;
 flex-direction: column;
 justify-content: flex-start;
