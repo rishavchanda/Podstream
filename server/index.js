@@ -18,9 +18,7 @@ const corsConfig = {
     credentials: true,
     origin: true,
 };
-app.use(cors({
-    origin: 'https://podstream.netlify.app/'
-}));
+app.use(cors(corsConfig));
 // app.use(morgan('tiny'));
 // app.disable('x-powered-by');
 // app.use(function (request, response, next) {
