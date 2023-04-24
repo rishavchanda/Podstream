@@ -52,8 +52,8 @@ const Span = styled.span`
   }
   `;
 const Podcasts = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 3fr));
+display: flex;
+flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
 `;
@@ -63,8 +63,8 @@ display: flex;
 flex-direction: column;
 justify-content: flex-start;
 gap: 20px;
-overflow-y: scroll;
 height: 100%;
+overflow-y: scroll;
 `
 const UserDetails = styled.div`
 display flex;
@@ -125,7 +125,7 @@ const Profile = () => {
         <ProfileMain>
             <UserDetails>
                 <ProfileAvatar>
-                    <Avatar sx={{ height: 165, width: 165 }} src={user?.thumbnail}></Avatar>
+                    <Avatar sx={{ height: 165, width: 165 }} src={user?.img}></Avatar>
                 </ProfileAvatar>
 
                 <ProfileContainer>
@@ -146,15 +146,15 @@ const Profile = () => {
                 </FilterContainer>
 
             }
-            <FilterContainer box={true} >
-                <Topic>Your Uploads
-                </Topic>
-                <Container>
-                    {currentUser && user?.podcasts.length === 0 &&
+            {currentUser && user?.podcasts.length === 0 &&
+                <FilterContainer box={true} >
+                    <Topic>Your Uploads
+                    </Topic>
+                    <Container>
                         <ButtonContainer>Upload</ButtonContainer>
-                    }
-                </Container>
-            </FilterContainer>
+                    </Container>
+                </FilterContainer>
+            }
             <FilterContainer box={true}>
                 <Topic>Your Favourites
                 </Topic>
