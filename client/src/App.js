@@ -40,7 +40,7 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(true);
   const { open, message, severity } = useSelector((state) => state.snackbar);
-  const {openplayer,type, episode, podid, currenttime,index } = useSelector((state) => state.audioplayer);
+  const {openplayer,type, episode, podid, currenttime,index,openSignin } = useSelector((state) => state.audioplayer);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true);
@@ -68,7 +68,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 
       <BrowserRouter>
-        {SignInOpen && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
+        {openSignin && <Signin setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
         {openplayer && type === 'video' && <VideoPlayer episode={episode} podid={podid} currenttime={currenttime} index={index}/>}
@@ -78,7 +78,7 @@ function App() {
           <Frame>
             <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />
             <Routes>
-              <Route path='/' exact element={<Dashboard />} />
+              <Route path='/' exact element={<Dashboard setSignInOpen={setSignInOpen}/>} />
               <Route path='/search' exact element={<Search />} />
               <Route path='/favourites' exact element={<Favourites />} />
               <Route path='/profile' exact element={<Profile />} />

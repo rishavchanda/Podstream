@@ -7,7 +7,6 @@ import { IconButton } from '@mui/material';
 import { favoritePodcast } from '../api';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Card = styled(Link)`
@@ -118,13 +117,13 @@ const Favorite = styled(IconButton)`
   color: ${({ theme }) => theme.text_primary} !important;
   position: absolute !important;
 `
-export const PodcastCard = ({ podcast,user, setSignInOpen }) => {
+export const PodcastCard = ({ podcast, user, setSignInOpen }) => {
   const [favourite, setFavourite] = useState(false)
-  
+
   const token = localStorage.getItem("podstreamtoken");
 
   const favoritpodcast = async () => {
-    await favoritePodcast(podcast._id,token).then((res) => {
+    await favoritePodcast(podcast._id, token).then((res) => {
       if (res.status === 200) {
         setFavourite(!favourite)
       }
@@ -147,13 +146,19 @@ export const PodcastCard = ({ podcast,user, setSignInOpen }) => {
   return (
     <Card to={`/podcast/${podcast._id}`}>
       <Top>
-        <Favorite onClick={() => favoritpodcast()}>
-          {favourite ?
-            <FavoriteIcon style={{ color: "#E30022",width: '16px', height: '16px'}}></FavoriteIcon>
-            :
-            <FavoriteIcon style={{width: '16px', height: '16px'}}></FavoriteIcon>
+        <Link onClick={() => {if (!currentUser){
+                    setSignInOpen(true)
+                }else{
+                  favoritpodcast()
+                }}}>
+          <Favorite >
+            {favourite ?
+              <FavoriteIcon style={{ color: "#E30022", width: '16px', height: '16px' }}></FavoriteIcon>
+              :
+              <FavoriteIcon style={{ width: '16px', height: '16px' }}></FavoriteIcon>
             }
-        </Favorite>
+          </Favorite>
+        </Link>
         <CardImage src={podcast.thumbnail} />
       </Top>
       <CardInformation>

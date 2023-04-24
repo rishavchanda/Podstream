@@ -19,6 +19,8 @@ import {
   import OTP from "./OTP";
   import { useGoogleLogin } from "@react-oauth/google";
   import axios from "axios";
+  import closeSignin from "../redux/snackbarSlice";
+
   
   const Container = styled.div`
     width: 100%;
@@ -191,7 +193,12 @@ import {
               dispatch(loginSuccess(res.data));
               setLoading(false);
               setDisabled(false);
-              setSignInOpen(false);
+              dispatch(
+                closeSignin({
+                  message: "Logged In Successfully",
+                  severity: "success",
+                })
+              )
               dispatch(
                 openSnackbar({
                   message: "Logged In Successfully",
@@ -383,7 +390,11 @@ import {
           console.log(res);
           if (res.status === 200) {
             dispatch(loginSuccess(res.data));
-            setSignInOpen(false);
+            dispatch(
+              closeSignin({
+
+              })
+            );
             dispatch(
               openSnackbar({
                 message: "Logged In Successfully",
@@ -417,7 +428,9 @@ import {
   
   
     return (
-      <Modal open={true} onClose={() => setSignInOpen(false)}>
+      <Modal open={true} onClose={() => dispatch(
+        closeSignin()
+      )}>
         <Container>
           {!showForgotPassword ? (
             <Wrapper>
@@ -428,7 +441,9 @@ import {
                   right: "30px",
                   cursor: "pointer",
                 }}
-                onClick={() => setSignInOpen(false)}
+                onClick={() => dispatch(
+                  
+                )}
               />
               <>
                 <Title>Sign In</Title>
@@ -505,7 +520,11 @@ import {
                 <Span
                   onClick={() => {
                     setSignUpOpen(true);
-                    setSignInOpen(false);
+                    dispatch(
+                      closeSignin({
+        
+                      })
+                    );
                   }}
                   style={{
                     fontWeight: "500",
@@ -600,7 +619,9 @@ import {
                         <Span
                           onClick={() => {
                             setSignUpOpen(true);
-                            setSignInOpen(false);
+                            dispatch(
+                              closeSignin()
+                            )
                           }}
                           style={{
                             fontWeight: "500",

@@ -77,7 +77,7 @@ width: 100%;
 color: ${({ theme }) => theme.text_primary};
 `
 
-const Dashboard = () => {
+const Dashboard = ({setSignInOpen}) => {
   const [mostPopular, setMostPopular] = useState([]);
   const [user, setUser] = useState();
   const [comedy, setComedy] = useState([]);

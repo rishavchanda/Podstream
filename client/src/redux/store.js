@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import snackbarReducer from "./snackbarSlice";
 import audioReducer from "./audioplayerSlice";
+import signinReducer from './setSigninSlice';
 import {
   persistStore,
   persistReducer,
