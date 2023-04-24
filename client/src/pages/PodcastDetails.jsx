@@ -187,8 +187,8 @@ const PodcastDetails = () => {
       <Episodes>
         <Topic>All Episodes</Topic>
         <EpisodeWrapper>
-          {podcast?.episodes.map((episode) => (
-            <Episodecard episode={episode} podid={podcast} type={podcast.type} user={user} />
+          {podcast?.episodes.map((episode,index) => (
+            <Episodecard episode={episode} podid={podcast} type={podcast.type} user={user} index={index} />
           ))}
         </EpisodeWrapper>
       </Episodes>
