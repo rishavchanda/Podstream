@@ -21,6 +21,9 @@ border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(5.7px);
 -webkit-backdrop-filter: blur(5.7px);
+@media (max-width: 768px) {
+    padding: 16px;
+  }
 
 `;
 const ButtonDiv = styled.div`
@@ -47,6 +50,9 @@ const ButtonDiv = styled.div`
 const Welcome = styled.div`
   font-size: 26px;
   font-weight: 600;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const IcoButton = styled(IconButton)`

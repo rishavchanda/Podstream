@@ -13,20 +13,18 @@ import { openSnackbar } from '../redux/snackbarSlice.jsx';
 import { CircularProgress } from '@mui/material';
 
 const SearchMain = styled.div`
+padding: 20px 30px;
+padding-bottom: 200px;
 height: 100%;
 overflow-y: scroll;
-width: 100%;
+overflow-x: hidden;
 display: flex;
 flex-direction: column;
-justify-content: flex-start;
-align-items: center;
-padding: 20px;
 gap: 20px;
 
 
 `;
 const Heading = styled.div`
-    width: 100%;
     align-items: flex-start;
     color: ${({ theme }) => theme.text_primary};
     font-size: 22px;
@@ -40,7 +38,6 @@ const BrowseAll = styled.div`
     padding: 14px;
 `;
 const SearchedCards = styled.div`
-    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -55,7 +52,7 @@ const Categories = styled.div`
     margin: 20px 10px;
 `;
 const Search_whole = styled.div`
- width:30%;
+ max-width: 700px;
  display:flex;
  border: 1px solid ${({ theme }) => theme.text_secondary};
  border-radius:30px;
