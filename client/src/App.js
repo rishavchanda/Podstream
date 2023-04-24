@@ -40,7 +40,7 @@ function App() {
 
   const [darkMode, setDarkMode] = useState(true);
   const { open, message, severity } = useSelector((state) => state.snackbar);
-  const {openaudio, episode, podid } = useSelector((state) => state.audioplayer);
+  const {openaudio, episode, podid, currenttime,index } = useSelector((state) => state.audioplayer);
   const {openvideo, videoepisode, videopodid } = useSelector((state) => state.videoplayer);
   const [SignUpOpen, setSignUpOpen] = useState(false);
   const [SignInOpen, setSignInOpen] = useState(false);
@@ -73,7 +73,7 @@ function App() {
         {SignUpOpen && <Signup setSignInOpen={setSignInOpen} setSignUpOpen={setSignUpOpen} />}
         {uploadOpen && <Upload setUploadOpen={setUploadOpen} />}
         {openvideo && <VideoPlayer videoepisode={videoepisode} videopodid={videopodid}/>}
-        {openaudio && <AudioPlayer episode={episode} podid={podid} />}
+        {openaudio && <AudioPlayer episode={episode} podid={podid} currenttime={currenttime} index={index}/>}
         <Podstream>
           {menuOpen && <Menu setMenuOpen={setMenuOpen} darkMode={darkMode} setDarkMode={setDarkMode} setUploadOpen={setUploadOpen} setSignInOpen={setSignInOpen}/>}
           <Frame>

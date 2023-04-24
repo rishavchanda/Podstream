@@ -51,7 +51,7 @@ const Description = styled.div`
     color: ${({ theme }) => theme.text_secondary};
 `;
 
-const Episodecard = ({episode,podid,user,type}) => {
+const Episodecard = ({episode,podid,user,type,index}) => {
     const dispatch = useDispatch();
   return (
     <Card onClick={()=>{
@@ -64,6 +64,8 @@ const Episodecard = ({episode,podid,user,type}) => {
                 openAudioPlayer({
                     episode: episode,
                     podid: podid,
+                    index: index,
+                    currenttime: 0
                 })
             )
         }else{

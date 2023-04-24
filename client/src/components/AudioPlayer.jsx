@@ -1,7 +1,9 @@
 import { Pause, PlayArrow, SkipNextRounded, SkipPreviousRounded, SouthRounded, VolumeUp } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import React, { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { setCurrentTime } from '../redux/audioplayerSlice'
 
 const Container = styled.div`
     display: flex;
@@ -138,16 +140,20 @@ const VolumeBar = styled.input.attrs({
   }
   `;
 
-const AudioPlayer = ({episode,podid}) => {
+const AudioPlayer = ({ episode, podid, currenttime }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progressWidth, setProgressWidth] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(1);
     const audioRef = useRef(null);
+    const dispatch = useDispatch();
+
 
     const togglePlay = () => {
         setIsPlaying(!isPlaying);
         isPlaying ? audioRef.current.pause() : audioRef.current.play();
+        console.log(currenttime)
+        audioRef.current.currentTime = currenttime;
     }
 
     const handleTimeUpdate = () => {
@@ -156,6 +162,11 @@ const AudioPlayer = ({episode,podid}) => {
         const progress = (currentTime / duration) * 100;
         setProgressWidth(progress);
         setDuration(duration);
+        dispatch(
+            setCurrentTime({
+                currenttime: currentTime
+            })
+        )
     }
 
     const handleVolumeChange = (event) => {
@@ -188,6 +199,8 @@ const AudioPlayer = ({episode,podid}) => {
         //     }, 1000);
         //     setIsPlaying(true);
         // }
+        // audioRef.current.currentTime = currenttime;
+
     }, []);
 
     return (
@@ -207,18 +220,18 @@ const AudioPlayer = ({episode,podid}) => {
             />
             <Player>
                 <Controls>
-                    <SkipPreviousRounded onClick={()=>goToPreviousEpisode()}/>
+                    <SkipPreviousRounded onClick={() => goToPreviousEpisode()} />
                     {isPlaying ? <IcoButton onClick={togglePlay}><Pause style={{ color: 'inherit' }} /></IcoButton> : <IcoButton onClick={togglePlay}><PlayArrow style={{ color: 'inherit' }} /></IcoButton>}
-                    <SkipNextRounded onClick={()=>goToNextEpisode()}/>
+                    <SkipNextRounded onClick={() => goToNextEpisode()} />
                 </Controls>
                 <ProgTime>
                     <Time>{audioRef.current?.currentTime ? new Date(audioRef.current.currentTime * 1000).toISOString().substr(14, 5) : "00:00"}</Time>
-                    <ProgressBar type="range"  min= {0} value={progressWidth} max={duration}
-                     onChange={
-                        (e) => {
-                            moveBy(e)
-                        }
-                    }/>
+                    <ProgressBar type="range" min={0} value={progressWidth} max={duration}
+                        onChange={
+                            (e) => {
+                                moveBy(e)
+                            }
+                        } />
                     <Time>{
                         audioRef.current?.duration ? new Date(audioRef.current.duration * 1000).toISOString().substr(14, 5) : "00:00"
                     }
