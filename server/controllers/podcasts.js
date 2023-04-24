@@ -98,7 +98,7 @@ export const getPodcastById = async (req, res, next) => {
 export const favoritPodcast = async (req, res, next) => {
     // Check if the user is the creator of the podcast
     const user = await User.findById(req.user.id);
-    const podcast = await Podcasts.findById(req.params.id);
+    const podcast = await Podcasts.findById(req.body.id);
     let found = false;
     if (user.id === podcast.creator) {
         return next(createError(403, "You can't favorit your own podcast!"));
@@ -106,12 +106,12 @@ export const favoritPodcast = async (req, res, next) => {
 
     // Check if the podcast is already in the user's favorits
     await Promise.all(user.favorits.map(async (item) => {
-        if (req.params.id == item) {
+        if (req.body.id == item) {
             //remove from favorite
             found = true;
             console.log("this")
             await User.findByIdAndUpdate(user.id, {
-                $pull: { favorits: req.params.id },
+                $pull: { favorits: req.body.id },
 
             }, { new: true })
             res.status(200).json({ message: "Removed from favorit" });
@@ -122,7 +122,7 @@ export const favoritPodcast = async (req, res, next) => {
 
     if (!found) {
         await User.findByIdAndUpdate(user.id, {
-            $push: { favorits: req.params.id },
+            $push: { favorits: req.body.id },
 
         }, { new: true });
         res.status(200).json({ message: "Added to favorit" });

@@ -28,6 +28,7 @@ const Image = styled.img`
     width: 60px;
     height: 60px;
     border-radius: 6px;
+    object-fit: cover;
 `
 const PodData = styled.div`
     display: flex;
@@ -71,7 +72,7 @@ const ProgTime = styled.div`
     gap: 18px;
 `
 
-const ProgressBar = styled.div`
+const ProgressBar = styled.input`
     position: relative;
     width: 100%;
     height: 4px;
@@ -195,9 +196,7 @@ const AudioPlayer = ({episode,podid}) => {
                 </Controls>
                 <ProgTime>
                     <Time>{audioRef.current?.currentTime ? new Date(audioRef.current.currentTime * 1000).toISOString().substr(14, 5) : "00:00"}</Time>
-                    <ProgressBar>
-                        <Progress width={progressWidth} />
-                    </ProgressBar>
+                    <ProgressBar type="range"  minm= {0} max= {1} step= "0.1" value={progressWidth} />
                     <Time>{
                         audioRef.current?.duration ? new Date(audioRef.current.duration * 1000).toISOString().substr(14, 5) : "00:00"
                     }

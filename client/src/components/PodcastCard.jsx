@@ -109,6 +109,7 @@ const Favorite = styled(IconButton)`
   right: 6px;
   padding: 6px !important;
   border-radius: 50%;
+  z-index: 100;
   display: flex;
   align-items: center;
   background: ${({ theme }) => theme.text_secondary + 95} !important;
@@ -121,7 +122,6 @@ export const PodcastCard = ({ podcast,user }) => {
   const token = localStorage.getItem("podstreamtoken");
 
   const favoritpodcast = async () => {
-    console.log(podcast._id.toString(),token)
     await favoritePodcast(podcast._id,token).then((res) => {
       if (res.status === 200) {
         setFavourite(!favourite)

@@ -21,7 +21,9 @@ const Top = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column; 
+  }
 `;
 
 const Image = styled.img`
@@ -146,7 +148,7 @@ const PodcastDetails = () => {
 
   useState(() => {
     getPodcast();
-  }, [])
+  }, [currentUser])
 
   React.useEffect(() => {
     //favorits is an array of objects in which each object has a podcast id match it to the current podcast id
@@ -156,7 +158,7 @@ const PodcastDetails = () => {
     if (user?.favorits?.find((fav) => fav._id === podcast?._id)) {
       setFavourite(true)
     }
-  }, [user, podcast])
+  }, [currentUser, podcast])
 
   return (
     <Container>

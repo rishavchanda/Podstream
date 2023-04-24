@@ -50,6 +50,7 @@ const Videoplayer = styled.video`
     border-radius: 16px;
     margin: 0px 20px;
     object-fit: cover;
+    margin-top: 30px;
 `;
 
 const EpisodeName = styled.div`
@@ -103,8 +104,8 @@ const VideoPlayer = ({openvideo, videoepisode, videopodid }) => {
                     <CloseRounded
                         style={{
                             position: "absolute",
-                            top: "24px",
-                            right: "30px",
+                            top: "12px",
+                            right: "20px",
                             cursor: "pointer",
                         }}
                         onClick={() => {
