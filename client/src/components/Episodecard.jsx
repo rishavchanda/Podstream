@@ -19,6 +19,10 @@ const Card = styled.div`
         box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.3);
         filter: brightness(1.3);
     }
+    @media (max-width: 768px){
+        flex-direction: column; 
+        align-items: flex-start;
+      }
 `;
 
 const Image = styled.img`

@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { getPodcastByCategory, getMostPopularPodcast } from '../api/index.js';
 import styled from 'styled-components';
 import { PodcastCard } from '../components/PodcastCard.jsx';
+import { useDispatch } from "react-redux";
+import { openSnackbar } from "../redux/snackbarSlice";
+import { displayPodcastFailure } from '../redux/userSlice.jsx';
 
 const DisplayMain = styled.div`
 display: flex;
@@ -38,19 +41,49 @@ const DisplayPodcasts = () => {
     const { type } = useParams();
     const [podcasts, setPodcasts] = useState([]);
     const [string, setString] = useState("");
+    const dispatch = useDispatch();
+    const [Loading, setLoading] = useState(false);
 
     const mostPopular = async () => {
         await getMostPopularPodcast()
             .then((res) => setPodcasts(res.data))
-            .catch((error) => console.log(error));
+            .catch((err) => {
+                dispatch(displayPodcastFailure());
+                setLoading(false);
+                dispatch(
+                    openSnackbar({
+                        message: err.message,
+                        severity: "error",
+                    })
+                );
+            });
     }
     const getCategory = async () => {
         await getPodcastByCategory(type)
             .then((res) => {
                 setPodcasts(res.data)
+                if (podcasts.length() === 0) {
+                    dispatch(displayPodcastFailure());
+                    setLoading(false);
+                    dispatch(
+                        openSnackbar({
+                            message: "No podcasts in this category.",
+                            severity: "error",
+                        })
+                    );
+                }
             })
-            .catch((err) =>
-                console.log(err));
+            .catch((err) => {
+                dispatch(displayPodcastFailure());
+                setLoading(false);
+                dispatch(
+                    openSnackbar({
+                        message: err.message,
+                        severity: "error",
+                    })
+                );
+            });
+
     }
 
     useEffect(() => {
