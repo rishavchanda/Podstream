@@ -88,7 +88,7 @@ const MainInfo = styled.div`
 const CreatorInfo = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 8px;
   margin-top: 6px;
 
@@ -98,12 +98,16 @@ const CreatorName = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 100%;
   color: ${({ theme }) => theme.text_secondary};
 `
 const TimePosted = styled.div`
-  padding-top:0.6rem;
   color: ${({ theme }) => theme.text_secondary};
+`
+
+const Views = styled.div`
+  font-size:10px;
+  color: ${({ theme }) => theme.text_secondary};
+  width: max-content;
 `
 const Favorite = styled(IconButton)`
   color:white;
@@ -148,13 +152,15 @@ export const PodcastCard = ({ podcast, user, setSignInOpen }) => {
   return (
     <Card to={`/podcast/${podcast._id}`}>
       <Top>
-        <Link onClick={() => {if (!currentUser){
-                    dispatch(
-                      openSignin()
-                    )
-                }else{
-                  favoritpodcast()
-                }}}>
+        <Link onClick={() => {
+          if (!currentUser) {
+            dispatch(
+              openSignin()
+            )
+          } else {
+            favoritpodcast()
+          }
+        }}>
           <Favorite >
             {favourite ?
               <FavoriteIcon style={{ color: "#E30022", width: '16px', height: '16px' }}></FavoriteIcon>
@@ -170,11 +176,15 @@ export const PodcastCard = ({ podcast, user, setSignInOpen }) => {
           <Title>{podcast.name}</Title>
           <Description>{podcast.desc}</Description>
           <CreatorInfo>
-            <Avatar
-              src={podcast.creator.img} style={{ width: '26px', height: '26px' }}>{podcast.creator.name?.charAt(0).toUpperCase()}</Avatar>
-            <CreatorName>
-              {podcast.creator.name}
-            </CreatorName>
+            <div style={{display: 'flex', alignItems: 'center',gap: '8px'}}>
+              <Avatar
+                src={podcast.creator.img} style={{ width: '26px', height: '26px' }}>{podcast.creator.name?.charAt(0).toUpperCase()}</Avatar>
+              <CreatorName>
+                {podcast.creator.name}
+              </CreatorName>
+
+            </div>
+            <Views>• {podcast.views} Views</Views>
           </CreatorInfo>
         </MainInfo>
       </CardInformation>

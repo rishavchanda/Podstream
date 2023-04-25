@@ -2,6 +2,8 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
 import { closePlayer, openPlayer } from '../redux/audioplayerSlice';
+import { addView } from '../api';
+import { openSnackbar } from '../redux/snackbarSlice';
 
 const Card = styled.div`
     display: flex;
@@ -56,8 +58,22 @@ const Description = styled.div`
 
 const Episodecard = ({episode,podid,user,type,index}) => {
     const dispatch = useDispatch();
+
+    const addviewtToPodcast = async () => {
+        await addView(podid._id).catch((err) => {
+            dispatch(
+                openSnackbar({
+                    message: err.message,
+                    type: "error",
+                })
+            );
+        });
+
+    }
+
   return (
-    <Card onClick={()=>{
+    <Card onClick={async ()=>{
+        await addviewtToPodcast();
         if(type === "audio"){
             //open audio player
             dispatch(

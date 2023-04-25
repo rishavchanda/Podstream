@@ -41,7 +41,7 @@ display: -webkit-box;
 const UploadInfo = styled.div`
 display: flex;
 width: 80%;
-gap: 30px;
+gap: 12px;
 
 `
 const Time = styled.div`
@@ -69,9 +69,12 @@ const TopResult = ({podcast}) => {
       <PodcastTitle>{podcast?.name}</PodcastTitle>
       <UploadInfo>
         <Time>
-          {format(podcast?.createdAt)}
+        • {podcast.views} Views
         </Time>
-        <CreatorName>{podcast?.creator.name}</CreatorName>
+        <Time>
+        • {format(podcast?.createdAt)}
+        </Time>
+        <CreatorName style={{marginLeft: '18px'}}>{podcast?.creator.name}</CreatorName>
       </UploadInfo>
       <Description>{podcast?.desc}</Description>
     </SearchedCard>

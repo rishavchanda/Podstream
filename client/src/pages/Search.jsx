@@ -57,6 +57,7 @@ const Categories = styled.div`
 const Search_whole = styled.div`
  max-width: 700px;
  display:flex;
+ width: 100%;
  border: 1px solid ${({ theme }) => theme.text_secondary};
  border-radius:30px;
  cursor:pointer;
@@ -72,8 +73,11 @@ const OtherResults = styled.div`
     height: 700px;
     overflow-y: scroll;
     overflow-x: hidden;
+    gap: 6px;
+    padding: 4px 4px;
     @media (max-width: 768px) {
         height: 100%;
+        padding: 4px 0px;
     }
 `;
 
@@ -121,6 +125,7 @@ const Search = () => {
 
     return (
         <SearchMain>
+            <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
             <Search_whole>
                 <SearchOutlinedIcon sx={{ "color": "inherit" }} />
                 <input type='text' placeholder='Search Artist/Podcast'
@@ -128,6 +133,8 @@ const Search = () => {
                     value={searched}
                     onChange={(e) => handleChange(e)} />
             </Search_whole>
+
+            </div>
             {searched === "" ?
                 <Categories>
                     <Heading>Browse All</Heading>
