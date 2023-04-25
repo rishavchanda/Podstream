@@ -19,7 +19,7 @@ import {
   import OTP from "./OTP";
   import { useGoogleLogin } from "@react-oauth/google";
   import axios from "axios";
-  import closeSignin from "../redux/snackbarSlice";
+  import { closeSignin } from "../redux/setSigninSlice";
 
   
   const Container = styled.div`
@@ -194,10 +194,7 @@ import {
               setLoading(false);
               setDisabled(false);
               dispatch(
-                closeSignin({
-                  message: "Logged In Successfully",
-                  severity: "success",
-                })
+                closeSignin()
               )
               dispatch(
                 openSnackbar({
@@ -391,9 +388,7 @@ import {
           if (res.status === 200) {
             dispatch(loginSuccess(res.data));
             dispatch(
-              closeSignin({
-
-              })
+              closeSignin()
             );
             dispatch(
               openSnackbar({
@@ -442,7 +437,7 @@ import {
                   cursor: "pointer",
                 }}
                 onClick={() => dispatch(
-                  
+                  closeSignin()
                 )}
               />
               <>

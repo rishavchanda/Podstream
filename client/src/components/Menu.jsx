@@ -14,6 +14,7 @@ import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import LogoIcon from '../Images/Logo.png'
+import { openSignin } from '../redux/setSigninSlice';
 
 const MenuContainer = styled.div`
   flex: 0.5;
@@ -176,7 +177,7 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen, setSignInOpen
                     </Elements>
 
                     :
-                    <Elements onClick={() => setSignInOpen(true)}>
+                    <Elements onClick={() => dispatch(openSignin())}>
                         <ExitToAppRoundedIcon />
                         <NavText>Log In</NavText>
                     </Elements>

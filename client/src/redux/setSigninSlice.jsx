@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    open: false,
+    opensi: false,
 };
 
-const snackbar = createSlice({
-    name: 'snackbar',
+const signin = createSlice({
+    name: 'signin',
     initialState,
     reducers: {
         openSignin: (state, action) => {
-            state.open = true;
+            state.opensi = true;
         },
         closeSignin: (state) => {
-            state.open = false;
+            state.opensi = false;
         }
     }
 });
 
-export const { openSignin, closeSignin } = snackbar.actions;
+export const { openSignin, closeSignin } = signin.actions;
 
-export default snackbar.reducer;
+export default signin.reducer;

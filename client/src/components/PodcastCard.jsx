@@ -5,9 +5,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import { favoritePodcast } from '../api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { openSignin } from '../redux/setSigninSlice';
 
 const Card = styled(Link)`
 text-decoration: none;
@@ -119,6 +120,7 @@ const Favorite = styled(IconButton)`
 `
 export const PodcastCard = ({ podcast, user, setSignInOpen }) => {
   const [favourite, setFavourite] = useState(false)
+  const dispatch = useDispatch();
 
   const token = localStorage.getItem("podstreamtoken");
 
@@ -147,7 +149,9 @@ export const PodcastCard = ({ podcast, user, setSignInOpen }) => {
     <Card to={`/podcast/${podcast._id}`}>
       <Top>
         <Link onClick={() => {if (!currentUser){
-                    setSignInOpen(true)
+                    dispatch(
+                      openSignin()
+                    )
                 }else{
                   favoritpodcast()
                 }}}>

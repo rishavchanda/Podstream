@@ -21,6 +21,7 @@ import {
   import { googleSignIn, signUp } from "../api/index";
   import OTP from "./OTP";
   import { useGoogleLogin } from "@react-oauth/google";
+import { closeSignin, openSignin } from "../redux/setSigninSlice";
   
   
   const Container = styled.div`
@@ -175,7 +176,7 @@ const SignUp = ({ setSignUpOpen, setSignInOpen }) => {
               setLoading(false);
               setDisabled(false);
               setSignUpOpen(false);
-              setSignInOpen(false);
+              dispatch(closeSignin())
             } else {
               dispatch(loginFailure());
               setcredentialError(`${res.data.message}`);
@@ -307,6 +308,7 @@ const SignUp = ({ setSignUpOpen, setSignInOpen }) => {
           console.log(res);
           if (res.status === 200) {
             dispatch(loginSuccess(res.data));
+            dispatch(closeSignin())
             setSignUpOpen(false);
             dispatch(
               openSnackbar({
@@ -344,7 +346,7 @@ const SignUp = ({ setSignUpOpen, setSignInOpen }) => {
     const theme = useTheme();
     //ssetSignInOpen(false)
     return (
-      <Modal open={true} onClose={() => setSignInOpen(false)}>
+      <Modal open={true} onClose={() => dispatch(closeSignin())}>
         <Container>
           <Wrapper>
             <CloseRounded
@@ -450,7 +452,7 @@ const SignUp = ({ setSignUpOpen, setSignInOpen }) => {
               <Span
                 onClick={() => {
                   setSignUpOpen(false);
-                  setSignInOpen(true);
+                  dispatch(openSignin());
                 }}
                 style={{
                   fontWeight: "500",

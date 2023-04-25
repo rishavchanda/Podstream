@@ -22,7 +22,7 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ user: userReducer, snackbar: snackbarReducer, audioplayer: audioReducer});
+const rootReducer = combineReducers({ user: userReducer, snackbar: snackbarReducer, audioplayer: audioReducer, signin: signinReducer});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
