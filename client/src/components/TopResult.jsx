@@ -47,10 +47,22 @@ gap: 12px;
 const Time = styled.div`
 color: ${({ theme }) => theme.text_secondary};
 font-size: 14px;
+@media (max-width: 768px) {
+  font-size: 12px;
+}
+@media (max-width: 560px) {
+  font-size: 10px;
+}
 `
 const CreatorName = styled.div`
 color: ${({ theme }) => theme.text_primary};
 font-size: 14px;
+@media (max-width: 768px) {
+  font-size: 12px;
+}
+@media (max-width: 560px) {
+  font-size: 10px;
+}
 `
 const Description = styled.div`
 color: ${({ theme }) => theme.text_secondary};

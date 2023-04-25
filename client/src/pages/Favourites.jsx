@@ -28,6 +28,9 @@ display: flex;
 flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
+@media (max-width: 550px){
+  justify-content: center;
+}
 `
 
 const Loader = styled.div`

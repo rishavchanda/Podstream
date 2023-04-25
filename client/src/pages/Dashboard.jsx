@@ -23,12 +23,14 @@ gap: 20px;
 const FilterContainer = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: flex-start;
 ${({ box, theme }) => box && `
 background-color: ${theme.bg};
   border-radius: 10px;
   padding: 20px 30px;
 `}
+background-color: ${({ theme }) => theme.bg};
+  border-radius: 10px;
+  padding: 20px 30px;
 `;
 const Topic = styled.div`
   color: ${({ theme }) => theme.text_primary};
@@ -59,6 +61,10 @@ display: flex;
 flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
+//center the items if only one item present
+@media (max-width: 550px){
+  justify-content: center;
+}
 `;
 
 const Loader = styled.div`
@@ -77,7 +83,7 @@ width: 100%;
 color: ${({ theme }) => theme.text_primary};
 `
 
-const Dashboard = ({setSignInOpen}) => {
+const Dashboard = ({ setSignInOpen }) => {
   const [mostPopular, setMostPopular] = useState([]);
   const [user, setUser] = useState();
   const [comedy, setComedy] = useState([]);

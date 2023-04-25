@@ -62,6 +62,9 @@ display: flex;
 flex-wrap: wrap;
 gap: 14px;
 padding: 18px 6px;
+@media (max-width: 550px){
+  justify-content: center;
+}
 `;
 const ProfileMain = styled.div`
 padding: 20px 30px;

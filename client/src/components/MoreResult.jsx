@@ -23,6 +23,10 @@ height: 80px;
 border-radius: 8px;
 width: 150px;
 object-fit: cover;
+@media (max-width: 768px) {
+  height: 60px;
+  width: 100px;
+}
 `
 const PodcastInfo = styled.div`
 display: flex;
@@ -37,11 +41,17 @@ color: ${({ theme }) => theme.text_primary};
 const Creator = styled.div`
 color: ${({ theme }) => theme.text_secondary};
 font-size: 12px;
+@media (max-width: 768px) {
+  font-size: 10px;
+}
 
 `
 const Time = styled.div`
 color: ${({ theme }) => theme.text_secondary};
 font-size: 12px;
+@media (max-width: 768px) {
+  font-size: 10px;
+}
 `
 const Desciption = styled.div`
 display: flex;
