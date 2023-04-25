@@ -85,7 +85,7 @@ const Logo = styled.div`
 const Image = styled.img`
   height: 40px;
 `;
-const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen, setSignInOpen }) => {
+const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -130,7 +130,9 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen, setSignInOpen
                     </Link >
                     :
                     <Link onClick={() =>
-                        setSignInOpen(true)
+                        dispatch(
+                            openSignin()
+                        )
                     } style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
                         <Elements>
                             <FavoriteRoundedIcon />
@@ -143,7 +145,9 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen, setSignInOpen
                 if (currentUser) {
                     setUploadOpen(true)
                 } else {
-                    setSignInOpen(true)
+                    dispatch(
+                        openSignin()
+                    )
                 }
             }} style={{ textDecoration: "none", color: "inherit", width: '100%' }}>
                 <Elements>
