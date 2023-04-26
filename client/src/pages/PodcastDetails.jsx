@@ -7,6 +7,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Episodecard from '../components/Episodecard';
 import { openSnackbar } from '../redux/snackbarSlice';
+import Avatar from '@mui/material/Avatar';
+import { format } from 'timeago.js';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 
 const Container = styled.div`
 padding: 20px 30px;
@@ -111,7 +115,37 @@ align-items: center;
 height: 100%;
 width: 100%;
 `
-
+const Creator = styled.div`
+color: ${({ theme }) => theme.text_secondary};
+font-size: 12px;
+`
+const CreatorContainer = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+`
+const CreatorDetails = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+gap: 8px;
+`
+const Views = styled.div`
+color: ${({ theme }) => theme.text_secondary};
+font-size: 12px;
+margin-left: 20px;
+`
+const Icon = styled.div`
+color: white;
+font-size: 12px;
+margin-left: 20px;
+border-radius: 50%;
+background: #9000ff !important;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 6px;
+`
 
 const PodcastDetails = () => {
 
@@ -212,8 +246,8 @@ const PodcastDetails = () => {
     <Container>
       {loading ?
         <Loader>
-        <CircularProgress />
-      </Loader>
+          <CircularProgress />
+        </Loader>
         :
         <>
           <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
@@ -236,6 +270,23 @@ const PodcastDetails = () => {
                   <Tag>{tag}</Tag>
                 ))}
               </Tags>
+              <CreatorContainer>
+                <CreatorDetails>
+                  <Avatar src={podcast?.creator.img} sx={{ width: "26px", height: "26px" }}>{currentUser.name.charAt(0).toUpperCase()}</Avatar>
+                  <Creator>{podcast?.creator.name}</Creator>
+                </CreatorDetails>
+                <Views>• {podcast?.views} Views</Views>
+                <Views>
+                  • {format(podcast?.createdAt)}
+                </Views>
+                <Icon>
+                  {podcast?.type === "audio" ?
+                    <HeadphonesIcon />
+                    :
+                    <PlayArrowIcon />
+                  }
+                </Icon>
+              </CreatorContainer>
             </Details>
           </Top>
           <Episodes>
