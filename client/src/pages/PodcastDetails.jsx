@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IconButton } from '@mui/material';
+import { CircularProgress, IconButton } from '@mui/material';
 import { favoritePodcast, getPodcastById, getUsers } from '../api';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Episodecard from '../components/Episodecard';
+import { openSnackbar } from '../redux/snackbarSlice';
 
 const Container = styled.div`
 padding: 20px 30px;
@@ -103,48 +104,95 @@ const Favorite = styled(IconButton)`
   color: ${({ theme }) => theme.text_primary} !important;
 `
 
+const Loader = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+`
+
+
 const PodcastDetails = () => {
 
   const { id } = useParams();
   const [favourite, setFavourite] = useState(false);
   const [podcast, setPodcast] = useState();
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState();
+
+  const dispatch = useDispatch();
 
   const token = localStorage.getItem("podstreamtoken");
   //user
   const { currentUser } = useSelector(state => state.user);
 
   const favoritpodcast = async () => {
+    setLoading(true);
     if (podcast !== undefined && podcast !== null) {
       await favoritePodcast(podcast?._id, token).then((res) => {
         if (res.status === 200) {
           setFavourite(!favourite)
+          setLoading(false)
         }
       }
       ).catch((err) => {
         console.log(err)
+        setLoading(false)
+        dispatch(
+          openSnackbar(
+            {
+              message: err.message,
+              severity: "error"
+            }
+          )
+        )
       })
     }
   }
 
   const getUser = async () => {
+    setLoading(true)
     await getUsers(token).then((res) => {
       setUser(res.data)
-    }).then((error) => {
-      console.log(error)
+      setLoading(false)
+    }).then((err) => {
+      console.log(err)
+      setLoading(false)
+      dispatch(
+        openSnackbar(
+          {
+            message: err.message,
+            severity: "error"
+          }
+        )
+      )
     });
   }
 
   const getPodcast = async () => {
+
+    setLoading(true)
     await getPodcastById(id).then((res) => {
       if (res.status === 200) {
         setPodcast(res.data)
+        setLoading(false)
       }
     }
     ).catch((err) => {
       console.log(err)
+      setLoading(false)
+      dispatch(
+        openSnackbar(
+          {
+            message: err.message,
+            severity: "error"
+          }
+        )
+      )
     })
   }
+
 
   useState(() => {
     getPodcast();
@@ -162,36 +210,44 @@ const PodcastDetails = () => {
 
   return (
     <Container>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-        <Favorite onClick={() => favoritpodcast()}>
-          {favourite ?
-            <FavoriteIcon style={{ color: "#E30022", width: '16px', height: '16px' }}></FavoriteIcon>
-            :
-            <FavoriteIcon style={{ width: '16px', height: '16px' }}></FavoriteIcon>
-          }
-        </Favorite>
-      </div>
-      <Top>
-        <Image src={podcast?.thumbnail} />
-        <Details>
-          <Title>{podcast?.name}
-          </Title>
-          <Description>{podcast?.desc}</Description>
-          <Tags>
-            {podcast?.tags.map((tag) => (
-              <Tag>{tag}</Tag>
-            ))}
-          </Tags>
-        </Details>
-      </Top>
-      <Episodes>
-        <Topic>All Episodes</Topic>
-        <EpisodeWrapper>
-          {podcast?.episodes.map((episode,index) => (
-            <Episodecard episode={episode} podid={podcast} type={podcast.type} user={user} index={index} />
-          ))}
-        </EpisodeWrapper>
-      </Episodes>
+      {loading ?
+        <Loader>
+        <CircularProgress />
+      </Loader>
+        :
+        <>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+            <Favorite onClick={() => favoritpodcast()}>
+              {favourite ?
+                <FavoriteIcon style={{ color: "#E30022", width: '16px', height: '16px' }}></FavoriteIcon>
+                :
+                <FavoriteIcon style={{ width: '16px', height: '16px' }}></FavoriteIcon>
+              }
+            </Favorite>
+          </div>
+          <Top>
+            <Image src={podcast?.thumbnail} />
+            <Details>
+              <Title>{podcast?.name}
+              </Title>
+              <Description>{podcast?.desc}</Description>
+              <Tags>
+                {podcast?.tags.map((tag) => (
+                  <Tag>{tag}</Tag>
+                ))}
+              </Tags>
+            </Details>
+          </Top>
+          <Episodes>
+            <Topic>All Episodes</Topic>
+            <EpisodeWrapper>
+              {podcast?.episodes.map((episode, index) => (
+                <Episodecard episode={episode} podid={podcast} type={podcast.type} user={user} index={index} />
+              ))}
+            </EpisodeWrapper>
+          </Episodes>
+        </>
+      }
     </Container >
   )
 }
