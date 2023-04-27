@@ -272,8 +272,8 @@ const PodcastDetails = () => {
               </Tags>
               <CreatorContainer>
                 <CreatorDetails>
-                  <Avatar src={podcast?.creator.img} sx={{ width: "26px", height: "26px" }}>{currentUser.name.charAt(0).toUpperCase()}</Avatar>
-                  <Creator>{podcast?.creator.name}</Creator>
+                  <Avatar src={podcast?.creator?.img} sx={{ width: "26px", height: "26px" }}>{podcast?.creator?.name.charAt(0).toUpperCase()}</Avatar>
+                  <Creator>{podcast?.creator?.name}</Creator>
                 </CreatorDetails>
                 <Views>• {podcast?.views} Views</Views>
                 <Views>
