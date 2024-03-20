@@ -72,7 +72,6 @@ npm start
 
 [Screencast from 27-04-23 07:21:38 PM IST.webm](https://user-images.githubusercontent.com/64485885/234887002-60554cc9-c298-42bd-a310-42334f8717a8.webm)
 
-
 ### Here are some pictures of the web application:
 
 ![image](https://user-images.githubusercontent.com/100614635/233979351-604732a6-eb97-4124-a4b9-9a07a22f7f9d.png)
