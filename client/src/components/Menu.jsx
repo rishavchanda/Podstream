@@ -101,7 +101,7 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
                 <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
                     <Logo>
                         <Image src={LogoIcon} />
-                        PODSTREAM
+                        Video Stream
                     </Logo>
                 </Link>
                 <Close>
@@ -127,7 +127,7 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
                             <FavoriteRoundedIcon />
                             <NavText>Favourites</NavText>
                         </Elements>
-                    </Link >
+                    </Link>
                     :
                     <Link onClick={() =>
                         dispatch(
@@ -138,7 +138,7 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
                             <FavoriteRoundedIcon />
                             <NavText>Favourites</NavText>
                         </Elements>
-                    </Link >
+                    </Link>
             }
             <HR />
             <Link onClick={() => {
@@ -186,8 +186,7 @@ const Menu = ({ setMenuOpen, darkMode, setDarkMode, setUploadOpen }) => {
                         <NavText>Log In</NavText>
                     </Elements>
             }
-
-        </MenuContainer >
+        </MenuContainer>
     )
 }
 
